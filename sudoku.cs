@@ -10,7 +10,7 @@ namespace IA_TP2
     {
         public int i;
         public int j;
-        public int? value { get; set; }
+        private int? value;
         private List<Case> relatives;
         public List<int> domain;
         public Case(int i, int j)
@@ -19,8 +19,17 @@ namespace IA_TP2
             this.j = j;
             this.value = null;
             relatives = new List<Case>();
-            domain = new List<int>(Enumerable.Range(1,9).ToArray());
+            domain = new List<int>(Enumerable.Range(1,9).ToArray()); 
+        }
+        public int? getValue()
+        {
+            return value;
+        }
+        public void setValue(int value)
+        {
             
+            this.value = value;
+            this.domain.RemoveAll(i => i != value);
         }
         public override String ToString()
         {

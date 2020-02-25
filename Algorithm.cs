@@ -112,7 +112,7 @@ namespace IA_TP2
         }
 
         /**
-         * On selectionne la variable qui contraint le moins de variables et on renvoie sa position i,j
+         * PAS BON A REFAIRE
          */
         public static (int, int) selectLCV(Sudoku sudoku)
         {

@@ -4,6 +4,6 @@
              xmlns:local="clr-namespace:IA_TP2"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        
     </Application.Resources>
 </Application>

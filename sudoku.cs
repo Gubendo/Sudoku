@@ -10,16 +10,21 @@ namespace IA_TP2
     {
         public int i;
         public int j;
-        public int value;
+        public int? value { get; set; }
         private List<Case> relatives;
         public List<int> domain;
         public Case(int i, int j)
         {
             this.i = i;
             this.j = j;
-            this.value = 0;
+            this.value = null;
             relatives = new List<Case>();
             domain = new List<int>(Enumerable.Range(1,9).ToArray());
+            
+        }
+        public override String ToString()
+        {
+            return this.value.ToString();
         }
         public List<Case> getRelatives()
         {
@@ -35,7 +40,7 @@ namespace IA_TP2
         }
         public bool isFixed()
         {
-            if(domain.Count==1 ||value!=0)
+            if(domain.Count==1 || value!=null)
             {
                 return true;
             }
@@ -57,20 +62,28 @@ namespace IA_TP2
     class Sudoku
     {
 
-        public Case[,] mySudoku;
+        public Case[][] mySudoku { get; set; }
         public int size;
         int subSize = 3;
 
         // SUBSIZE EST TOUJOURS EGAL A RACINE DE SIZE
         public Sudoku(int size)
         {
-            mySudoku = new Case[size, size];
+            mySudoku = new Case[size][];
             this.size = size;
+            if(Math.Sqrt(size)%1!=0)
+            {
+                //ERROR
+                Console.WriteLine("ERROOOOOOR");
+                return;
+            }
+            this.subSize = (int ) Math.Sqrt(size);
             for (int i = 0; i < size; i++)
             {
+                mySudoku[i] = new Case[size];
                 for (int j = 0; j < size; j++)
                 {
-                    mySudoku[i, j] = new Case(i, j);
+                    mySudoku[i][j] = new Case(i, j);
                 }
             }
         }
@@ -81,7 +94,7 @@ namespace IA_TP2
             {
                 for (int j = 0; j < size; j++)
                 {
-                    generateRelatives(ref mySudoku[i, j]);
+                    generateRelatives(ref mySudoku[i][j]);
                 }
             }
         }
@@ -92,8 +105,8 @@ namespace IA_TP2
             int actJ = actCase.j;
             for (int i = 0; i < size; i++)
             {
-                    actCase.addRelative(ref mySudoku[actI, i]);
-                    actCase.addRelative(ref mySudoku[i, actJ]);
+                    actCase.addRelative(ref mySudoku[actI][i]);
+                    actCase.addRelative(ref mySudoku[i][actJ]);
                  
             }
             int startingSubI =actI -  actI % subSize;
@@ -102,7 +115,7 @@ namespace IA_TP2
             {
                 for(int j = startingSubJ; j <startingSubJ +subSize; j++)
                 {
-                        actCase.addRelative(ref mySudoku[i, j]);
+                        actCase.addRelative(ref mySudoku[i][j]);
                     
                 }
             }
@@ -110,7 +123,7 @@ namespace IA_TP2
 
         public List<Case> getRelatives(int i, int j)
         {
-            return mySudoku[i, j].getRelatives();
+            return mySudoku[i][j].getRelatives();
         }
     }
 }

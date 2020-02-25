@@ -20,8 +20,8 @@ namespace IA_TP2
                 {
                     for (int index = 0; index < sudoku.getRelatives(i, j).Count; index++)
                     {
-                        Case actCase = sudoku.mySudoku[i, j].getRelatives()[index];
-                        queue.Enqueue(new Arc(ref sudoku.mySudoku[i, j], ref actCase));
+                        Case actCase = sudoku.mySudoku[i][j].getRelatives()[index];
+                        queue.Enqueue(new Arc(ref sudoku.mySudoku[i][j], ref actCase));
                     }
                 }
             }
@@ -79,7 +79,7 @@ namespace IA_TP2
             {
                 for (int indexJ = 0; j < sudoku.size; j++)
                 {
-                    if (sudoku.mySudoku[i, j].domain.Count > sudoku.mySudoku[indexI, indexJ].domain.Count)
+                    if (sudoku.mySudoku[i][j].domain.Count > sudoku.mySudoku[indexI][indexJ].domain.Count)
                     {
                         i = indexI;
                         j = indexJ;
@@ -101,7 +101,7 @@ namespace IA_TP2
             {
                 for (int indexJ = 0; j < sudoku.size; j++)
                 {
-                    if (sudoku.mySudoku[i, j].getRelatives().Count < sudoku.mySudoku[indexI, indexJ].getRelatives().Count)
+                    if (sudoku.mySudoku[i][j].getRelatives().Count < sudoku.mySudoku[indexI][indexJ].getRelatives().Count)
                     {
                         i = indexI;
                         j = indexJ;
@@ -123,7 +123,7 @@ namespace IA_TP2
             {
                 for (int indexJ = 0; j < sudoku.size; j++)
                 {
-                    if (sudoku.mySudoku[i, j].getRelatives().Count > sudoku.mySudoku[indexI, indexJ].getRelatives().Count)
+                    if (sudoku.mySudoku[i][j].getRelatives().Count > sudoku.mySudoku[indexI][indexJ].getRelatives().Count)
                     {
                         i = indexI;
                         j = indexJ;

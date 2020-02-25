@@ -24,10 +24,47 @@ namespace IA_TP2
         {
             InitializeComponent();
 
-            
-           Sudoku actSudoku = new Sudoku(9);
-           actSudoku.generateRelatives();
-           Console.WriteLine(actSudoku.getRelatives(0, 4).Count);
+
+
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            Sudoku actSudoku = new Sudoku(9);
+            switch (sizeCombo.SelectedIndex)
+            {
+                case 0:
+                    actSudoku = new Sudoku(9);
+                    break;
+                case 1:
+                    actSudoku = new Sudoku(16);
+                    break;
+                case 2:
+                    actSudoku = new Sudoku(25);
+                    break;
+                case 3:
+                    actSudoku = new Sudoku(36);
+                    break;
+                default:
+                    actSudoku = new Sudoku(9);
+                    break;
+
+            }
+
+           
+            dataShow.ItemsSource2D = actSudoku.mySudoku;
+            dataShow.ColumnHeaderHeight = 0;
+            dataShow.RowHeaderWidth = 0;
+            dataShow.MinRowHeight = 600 / actSudoku.size;
+            dataShow.MaxColumnWidth = 800 / actSudoku.size;
+            dataShow.FontSize = 19*16 /actSudoku.size;
         }
     }
 }
+/*
+List<Case> actCases = new List<Case>();
+                for(int i = 0; i<actSudoku.size;i++)
+                {
+                    dataGrid.Row
+                    actCases.Add(actSudoku.mySudoku[i, j]);
+                }*/

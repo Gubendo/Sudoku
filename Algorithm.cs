@@ -112,37 +112,41 @@ namespace IA_TP2
         }
 
         /**
-         * PAS BON A REFAIRE
+         * On selectionne la variable qui réduit le - les autres variables et on renvoie sa position
          */
-        public static (int, int) selectLCV(Sudoku sudoku)
+        public static (int, int) selectLCV(Sudoku sudoku, Arc arc)
         {
-            int i = 0;
-            int j = 0;
+            Queue<Arc> queue = new Queue<Arc>();
 
-            for (int indexI = 0; i < sudoku.size; i++)
+            //ADD ALL ARC TO QUEUE
+            for (int i = 0; i < sudoku.size; i++)
             {
-                for (int indexJ = 0; j < sudoku.size; j++)
+                for (int j = 0; j < sudoku.size; j++)
                 {
-                    if (sudoku.mySudoku[i][j].getRelatives().Count > sudoku.mySudoku[indexI][indexJ].getRelatives().Count)
+                    for (int index = 0; index < sudoku.getRelatives(i, j).Count; index++)
                     {
-                        i = indexI;
-                        j = indexJ;
+                        Case actCase = sudoku.mySudoku[i][j].getRelatives()[index];
+                        queue.Enqueue(new Arc(ref sudoku.mySudoku[i][j], ref actCase));
                     }
                 }
             }
-            return (i, j);
+            
+            //ON RECUPERE LA PREMIERE CASE DANS LES CONTRAINTES
+            Arc actArc = queue.Dequeue();
+            Arc choisie = actArc;
+            
+            
+            while (queue.Count > 0)
+            {
+                actArc = queue.Dequeue();
+                //SI Xi MOINS CONTRAIGNANTE QUE CHOISIE
+                if (choisie.xi.domain.Count() < actArc.xi.domain.Count())
+                {
+                    choisie = actArc;
+                }
+            }
+            return (choisie.xj.i, choisie.xj.j);
         }
-
-
-
-
-
-
-
-
-
-
-
 
     }
 

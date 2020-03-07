@@ -178,19 +178,43 @@ namespace IA_TP2
 
         public static Sudoku backtracking(Sudoku sudoku)
         {
+            Sudoku result = sudoku;
+
             // 1 - Selectionner var non assigné : utiliser MRV puis DH en cas d'égalité
             (int, int) var;
             var = selectDH(sudoku, selectMRV(sudoku));
 
             // 2 - Selectionner val pour var choisie : utiliser LCV
             int val = selectLCV(sudoku, var);
+            sudoku.mySudoku[var.Item1][var.Item2].setValue(val);
 
             // 3 - AC3 ?
-            // 4 - Recursivité
 
-            return sudoku;
+
+            // 4 - Recursivité
+            try
+            {
+                result = backtracking(sudoku);
+            }
+            catch (Failure ex)
+            {
+                // le resultat trouvé n'était pas viable => on revient en arrière
+                sudoku.mySudoku[var.Item1][var.Item2].setValue(0);
+
+                //modif du domaine ?
+            }
+
+            return result;
         }
 
+        public class Failure : Exception
+        {
+            public Failure(string message)
+                :base(message)
+            {
+
+            }
+        }
     }
 
 

@@ -140,11 +140,11 @@ namespace IA_TP2
         }
 
         /**
-         * On selectionne la variable qui réduit le - les autres variables et on renvoie sa position
+         * On selectionne la VALEUR pour la variable DEJA CHOISIE qui réduit le - réduit le moins les valeurs possibles des prochaines variables (sudoku.getRelatives(var))
          */
-        public static (int, int) selectLCV(Sudoku sudoku, Arc arc)
+        public static int selectLCV(Sudoku sudoku,(int,int) var)
         {
-            Queue<Arc> queue = new Queue<Arc>();
+            /*Queue<Arc> queue = new Queue<Arc>();
 
             //ADD ALL ARC TO QUEUE
             for (int i = 0; i < sudoku.size; i++)
@@ -172,8 +172,8 @@ namespace IA_TP2
                 {
                     choisie = actArc;
                 }
-            }
-            return (choisie.xj.i, choisie.xj.j);
+            }*/
+            return 0;
         }
 
         public static Sudoku backtracking(Sudoku sudoku)
@@ -183,6 +183,8 @@ namespace IA_TP2
             var = selectDH(sudoku, selectMRV(sudoku));
 
             // 2 - Selectionner val pour var choisie : utiliser LCV
+            int val = selectLCV(sudoku, var);
+
             // 3 - AC3 ?
             // 4 - Recursivité
 

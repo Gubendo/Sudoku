@@ -1,13 +1,39 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
 
 namespace IA_TP2
 {
     class Algorithm
     {
+        public static void ReadCSV()
+        {
+            Sudoku sukodu = new Sudoku(9);
+            int i = 0;
+
+            //Remplacer par adrese du fichier
+            using (var reader = new StreamReader(@"/Users/yassirchekour/Desktop/test.csv"))
+            {
+
+                while (!reader.EndOfStream)
+                {
+                    var line = reader.ReadLine();
+                    var values = line.Split(';');
+
+                    for (int j = 1; j < 9; j++)
+                    {
+                        //Console.Write(Int16.Parse(values[j]));
+                        sukodu.mySudoku[i][j].setValue(Int16.Parse(values[j]));
+                    }
+                    i = i + 1;
+                }
+            }
+            
+        }
+        
         public static void AC3(ref Sudoku sudoku)
         {
 

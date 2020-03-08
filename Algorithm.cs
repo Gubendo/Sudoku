@@ -59,7 +59,7 @@ namespace IA_TP2
                     for (int index = 0; index < actArc.xi.getRelatives().Count; index++)
                     {
                         Case actCase = actArc.xi.getRelatives()[index];
-                        queue.Enqueue(new Arc(ref actArc.xi, ref actCase));
+                        queue.Enqueue(new Arc(ref actCase, ref actArc.xi));
                     }
                 }
             }
@@ -176,34 +176,71 @@ namespace IA_TP2
             return 0;
         }
 
+        //On test si une solution est encore possible
+        public static bool isLost(Sudoku sudoku)
+        {
+             for (int i = 0; i < sudoku.size; i++)
+            {
+                for (int j = 0; j < sudoku.size; j++)
+                {
+                    if (sudoku.mySudoku[i][j].isLost()) {return true;}
+                }
+            }
+             return false;
+        }
+
         public static Sudoku backtracking(Sudoku sudoku)
         {
             Sudoku result = sudoku;
+            Sudoku tmp = sudoku;
+            bool flag;
 
             // 1 - Selectionner var non assigné : utiliser MRV puis DH en cas d'égalité
             (int, int) var;
             var = selectDH(sudoku, selectMRV(sudoku));
 
             // 2 - Selectionner val pour var choisie : utiliser LCV
-            int val = selectLCV(sudoku, var);
-            sudoku.mySudoku[var.Item1][var.Item2].setValue(val);
-
-            // 3 - AC3 ?
-
-
-            // 4 - Recursivité
-            try
+            int l = sudoku.mySudoku[var.Item1][var.Item2].domain.Count;
+            for (int i=0; i<l; i++)
             {
-                result = backtracking(sudoku);
-            }
-            catch (Failure ex)
-            {
-                // le resultat trouvé n'était pas viable => on revient en arrière
-                sudoku.mySudoku[var.Item1][var.Item2].setValue(0);
+                //LCV pas correct pour le moment
+                //int val = selectLCV(sudoku, var);
+                int val = sudoku.mySudoku[var.Item1][var.Item2].domain[i];
+                sudoku.mySudoku[var.Item1][var.Item2].setValue(val);
 
-                //modif du domaine ?
-            }
+                // 3 - AC3 => refresh du domaine de chaque case
+                AC3(sudoku);;
 
+                //detection de l'échec
+                if (isLost(sudoku))
+                {
+                     // le resultat trouvé n'était pas viable => on revient en arrière
+                     sudoku = tmp;
+                }
+                else
+                {
+                    // 4 - Recursivité
+                    try
+                    {
+                        flag = true;
+                        result = backtracking(sudoku);
+                    }
+                    catch (Failure ex)
+                    {
+                        // le resultat trouvé n'était pas viable => on revient en arrière
+                        sudoku = tmp;
+                        flag = false;
+
+                    }
+                    if (flag)
+                    {
+                        //RETURN SOLUTION ICI SI PAS DE PROBLEME
+                        return result;
+                    }
+                }
+            }
+            //Failure
+            throw new Failure("Pas de solution il faut remonter");
             return result;
         }
 

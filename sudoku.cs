@@ -56,6 +56,15 @@ namespace IA_TP2
             return false;
         }
 
+        public bool isLost()
+        {
+            if(domain.Count==0 || value!=null)
+            {
+                return true;
+            }
+            return false;
+        }
+
     }
     class Arc
     {

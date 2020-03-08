@@ -102,9 +102,9 @@ namespace IA_TP2
             int j = 0;
             List<(int, int)> ret = new List<(int, int)>();
 
-            for (int indexI = 0; i < sudoku.size; i++)
+            for (int indexI = 0; indexI < sudoku.size; indexI++)
             {
-                for (int indexJ = 0; j < sudoku.size; j++)
+                for (int indexJ = 0; indexJ < sudoku.size; indexJ++)
                 {
                     if (sudoku.mySudoku[i][j].domain.Count >= sudoku.mySudoku[indexI][indexJ].domain.Count)
                     {
@@ -139,41 +139,65 @@ namespace IA_TP2
             return (i, j);
         }
 
-        /**
-         * On selectionne la VALEUR pour la variable DEJA CHOISIE qui réduit le - réduit le moins les valeurs possibles des prochaines variables (sudoku.getRelatives(var))
-         */
+        /*
+         On selectionne la valeur pour la variable déjà choisie qui réduit le moins les valeurs possibles des prochaines variables (sudoku.getRelatives(var))
+        */
         public static int selectLCV(Sudoku sudoku,(int,int) var)
         {
-            /*Queue<Arc> queue = new Queue<Arc>();
+            int i = var.Item1;
+            int j = var.Item2;
 
-            //ADD ALL ARC TO QUEUE
-            for (int i = 0; i < sudoku.size; i++)
+            int minVal = 0;
+            int somme = 0;
+            int sommeMin = 9999;
+
+            bool impossible = false;
+
+            // On parcourt les différentes valeurs possibles de la variable de base
+ 
+            foreach(int value in sudoku.mySudoku[i][j].domain)
             {
-                for (int j = 0; j < sudoku.size; j++)
+                // On applique la valeur value (comment faire ?)
+
+                // APPLICATION VALEUR 
+
+                // On parcourt les variables relatives
+
+                foreach(Case relative in sudoku.getRelatives(i,j))
                 {
-                    for (int index = 0; index < sudoku.getRelatives(i, j).Count; index++)
+                    // On somme la taille de tous les domaines (si différente de 0)
+
+                    if (sudoku.mySudoku[relative.i][relative.j].domain.Count == 0)
                     {
-                        Case actCase = sudoku.mySudoku[i][j].getRelatives()[index];
-                        queue.Enqueue(new Arc(ref sudoku.mySudoku[i][j], ref actCase));
+                        impossible = true;
+                    }
+                    else
+                    {
+                        somme += sudoku.mySudoku[relative.i][relative.j].domain.Count;
                     }
                 }
+
+                // Si la somme des tailles de domaine est minimale, on garde cette valeur
+
+                if(somme < sommeMin && impossible == false)
+                {
+                    sommeMin = somme;
+                    minVal = value;
+                }
+
+                // On annule l'application de la valeur et on reset les variables
+
+                // ANNULATION APPLICATION
+                somme = 0;
+                impossible = false;
+
             }
 
-            //ON RECUPERE LA PREMIERE CASE DANS LES CONTRAINTES
-            Arc actArc = queue.Dequeue();
-            Arc choisie = actArc;
-
-
-            while (queue.Count > 0)
+            if(minVal == 0)
             {
-                actArc = queue.Dequeue();
-                //SI Xi MOINS CONTRAIGNANTE QUE CHOISIE
-                if (choisie.xi.domain.Count() < actArc.xi.domain.Count())
-                {
-                    choisie = actArc;
-                }
-            }*/
-            return 0;
+                Console.WriteLine("Aucune valeur possible pour cette case");
+            }
+            return minVal;
         }
 
         //On test si une solution est encore possible

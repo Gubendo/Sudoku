@@ -159,11 +159,12 @@ namespace IA_TP2
             {
                 // On applique la valeur value (comment faire ?)
 
-                // APPLICATION VALEUR 
+                // sudoku.mySudoku[i][j].setValue(value)
+                // AC3(sudoku);
 
                 // On parcourt les variables relatives
 
-                foreach(Case relative in sudoku.getRelatives(i,j))
+                foreach (Case relative in sudoku.getRelatives(i,j))
                 {
                     // On somme la taille de tous les domaines (si différente de 0)
 
@@ -187,7 +188,9 @@ namespace IA_TP2
 
                 // On annule l'application de la valeur et on reset les variables
 
-                // ANNULATION APPLICATION
+                // sudoku.mySudoku[i][j].setValue(0)
+                // AC3(sudoku);
+
                 somme = 0;
                 impossible = false;
 

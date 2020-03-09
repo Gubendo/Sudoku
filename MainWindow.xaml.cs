@@ -132,7 +132,8 @@ namespace IA_TP2
             switch (sizeCombo.SelectedIndex)
             {
                 case 0:
-                    actSudoku = Algorithm.ReadCSV();
+                    actSudoku = new Sudoku(9);
+                    //actSudoku = Algorithm.ReadCSV();
                     tailleSudoku = 9;
                     break;
                 case 1:
@@ -164,7 +165,7 @@ namespace IA_TP2
 
             if (actSudoku.size != 9) return;
 
-            /*
+            
             actSudoku.mySudoku[3][0].setValue(1);
             actSudoku.mySudoku[5][0].setValue(5);
             actSudoku.mySudoku[7][0].setValue(6);
@@ -201,7 +202,7 @@ namespace IA_TP2
             actSudoku.mySudoku[3][8].setValue(4);
             actSudoku.mySudoku[5][8].setValue(1);
 
-            */
+            
 
             //actSudoku = Algorithm.backtracking(actSudoku);
 

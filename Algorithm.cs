@@ -33,7 +33,6 @@ namespace IA_TP2
             Sudoku sudoku = new Sudoku(9);
             int i = 0;
             int rnd = GenerateRandomNumber(4);
-            rnd = 0;
             StreamReader reader;
 
             switch (rnd)

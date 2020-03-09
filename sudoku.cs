@@ -27,8 +27,8 @@ namespace IA_TP2
             this.i = tmp.i;
             this.j = tmp.j;
             this.value = tmp.value;
-            this.relatives=tmp.relatives;
-            this.domain = tmp.domain;
+            this.relatives=new List<Case>(tmp.relatives);
+            this.domain = new List<int>(tmp.domain);
         }
 
         public int? getValue()
@@ -47,7 +47,7 @@ namespace IA_TP2
         }
         public List<Case> getRelatives()
         {
-            relatives.RemoveAll(c => c.isFixed());
+            //relatives.RemoveAll(c => c.isFixed());
             return relatives;
         }
         public void addRelative(ref Case relative)

@@ -14,7 +14,7 @@ namespace IA_TP2
             Sudoku sukodu = new Sudoku(9);
             int i = 0;
 
-            //Remplacer par adrese du fichier
+            //Remplacer par adresse du fichier
             using (var reader = new StreamReader(@"/Users/yassirchekour/Desktop/test.csv"))
             {
 
@@ -44,15 +44,15 @@ namespace IA_TP2
             {
                 for (int j = 0; j < sudoku.size; j++)
                 {
-                    Console.WriteLine("//AC3// Taille RELATIVES : " + sudoku.getRelatives(i, j).Count);
-                    if ( i == 0 && j ==0)
+                    //Console.WriteLine("//AC3// Taille RELATIVES : " + sudoku.getRelatives(i, j).Count);
+                    /*if ( i == 0 && j ==0)
                     {
                         Console.WriteLine(" relatives de 0 0");
                         foreach (Case c in sudoku.getRelatives(i, j))
                         {
                             Console.WriteLine("i = "+c.i + " j = "+c.j);
                         }
-                    }
+                    }*/
                     for (int index = 0; index < sudoku.getRelatives(i, j).Count; index++)
                     {
                         Case actCase = sudoku.mySudoku[i][j].getRelatives()[index];
@@ -82,9 +82,16 @@ namespace IA_TP2
          */
         public static bool removeInconsistentValues(Arc arc)
         {
+            //Console.WriteLine("test remove i: " + arc.xi.i + " j = " + arc.xi.j+ "// i: " + arc.xj.i + " j = " + arc.xj.j);
             bool removed = false;
-            foreach (int valueI in arc.xi.domain)
+            int length = arc.xi.domain.Count;
+            int valueI;
+            int k = 0;
+            for (int i =0; i<length; i++)
+            //foreach (int valueI in arc.xi.domain)
             {
+                valueI = arc.xi.domain.ElementAt(k);
+               // Console.WriteLine("value I boucle :" + valueI+" k ="+k);
                 bool allow = false;
                 foreach (int valueJ in arc.xj.domain)
                 {
@@ -95,9 +102,12 @@ namespace IA_TP2
                 }
                 if (!allow)
                 {
+                    if (arc.xi.i==0 && arc.xi.j==0) { Console.WriteLine("valueI : " + valueI + " i :" + arc.xi.i + " j :" + arc.xi.j + " autre case i :" + arc.xj.i + " j :" + arc.xj.j); }
+                    
                     arc.xi.domain.Remove(valueI);
                     removed = true;
                 }
+                else { k += 1; }
             }
             return removed;
         }
@@ -245,8 +255,9 @@ namespace IA_TP2
         public static Sudoku backtracking(Sudoku sudoku)
         {
             Sudoku result = new Sudoku(sudoku);
-            Sudoku tmp =  new Sudoku(sudoku);
+            Sudoku tmp = new Sudoku(sudoku);
             bool flag;
+            AC3(sudoku);
 
             // 1 - Selectionner var non assigné : utiliser MRV puis DH en cas d'égalité
             (int, int) var;
@@ -258,17 +269,22 @@ namespace IA_TP2
             {
                 //LCV pas correct pour le moment
                 //int val = selectLCV(sudoku, var);
+                Console.WriteLine("i = "+var.Item1+" j = "+var.Item2);
                 Console.WriteLine(sudoku.mySudoku[var.Item1][var.Item2].domain.Count);
+                //Console.WriteLine(tmp.mySudoku[var.Item1][var.Item2].domain.Count);
                 int val = sudoku.mySudoku[var.Item1][var.Item2].domain[i];
                 sudoku.mySudoku[var.Item1][var.Item2].setValue(val);
+                Console.WriteLine("val : "+val);
+                Console.WriteLine(sudoku.mySudoku[var.Item1][var.Item2].domain.Count);
 
                 // 3 - AC3 => refresh du domaine de chaque case
                 AC3(sudoku);
-                ////// PROBLEME ICI PAS DE REFRESH EFFECTUE
+                Console.WriteLine(sudoku.mySudoku[var.Item1][var.Item2].domain.Count);
 
                 //detection de l'échec
                 if (isLost(sudoku))
                 {
+                    Console.WriteLine("hello");
                     // le resultat trouvé n'était pas viable => on revient en arrière
                     sudoku = new Sudoku(tmp);
                 }

@@ -59,10 +59,18 @@
 
 
 
-        <dg2d:DataGrid2D Name="dataShow"
-                    ColumnWidth="*"
-                 UseModifiedDataGridStyle="True" 
-                 ItemsSource2D="{Binding value}" Margin="0,0,30,0" Height="700" FontWeight="Bold" VerticalScrollBarVisibility="Disabled" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+      <dg2d:DataGrid2D Name="dataShow"
+                  ColumnWidth="*"
+               UseModifiedDataGridStyle="True"
+               ItemsSource2D="{Binding value}" Margin="0,0,30,0" Height="700" FontWeight="Normal" VerticalScrollBarVisibility="Disabled" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Right" VerticalAlignment="Center">
+        <DataGrid.CellStyle>
+          <Style TargetType="DataGridCell" >
+                <Setter Property="Background" Value="LightGray"/>
+            
+          </Style>
+          
+        </DataGrid.CellStyle>
+      </dg2d:DataGrid2D>
 
 
     </Grid>

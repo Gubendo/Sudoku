@@ -21,9 +21,16 @@ namespace IA_TP2
     public partial class MainWindow : Window
     {
         Sudoku actSudoku = new Sudoku(9);
+        SolidColorBrush white = new SolidColorBrush(Colors.WhiteSmoke);
+        int tailleSudoku = 0;
+
+        int i = 0;
+        int j = 0;
         public MainWindow()
         {
             InitializeComponent();
+
+            
 
 
 
@@ -35,18 +42,23 @@ namespace IA_TP2
             {
                 case 0:
                     actSudoku = new Sudoku(9);
+                    tailleSudoku = 9;
                     break;
                 case 1:
                     actSudoku = new Sudoku(16);
+                    tailleSudoku = 16;
                     break;
                 case 2:
                     actSudoku = new Sudoku(25);
+                    tailleSudoku = 25;
                     break;
                 case 3:
                     actSudoku = new Sudoku(36);
+                    tailleSudoku = 36;
                     break;
                 default:
                     actSudoku = new Sudoku(9);
+                    tailleSudoku = 9;
                     break;
 
             }
@@ -58,9 +70,26 @@ namespace IA_TP2
             dataShow.MinRowHeight = 600 / actSudoku.size;
             dataShow.MaxColumnWidth = 800 / actSudoku.size;
             dataShow.FontSize = 19*16 /actSudoku.size;
+
+            if (tailleSudoku == 9)
+            {
+                Color9();
+            }
+            else if(tailleSudoku == 16)
+            {
+                Color16();
+            }
+            else if (tailleSudoku == 25)
+            {
+                Color25();
+            }
+            else if (tailleSudoku == 36)
+            {
+                Color36();
+            }
+
         }
-
-
+        
         //LA VIE N'EST QUE MENSONGE
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
@@ -68,18 +97,23 @@ namespace IA_TP2
             {
                 case 0:
                     actSudoku = new Sudoku(9);
+                    tailleSudoku = 9;
                     break;
                 case 1:
                     actSudoku = new Sudoku(16);
+                    tailleSudoku = 16;
                     break;
                 case 2:
                     actSudoku = new Sudoku(25);
+                    tailleSudoku = 25;
                     break;
                 case 3:
                     actSudoku = new Sudoku(36);
+                    tailleSudoku = 36;
                     break;
                 default:
                     actSudoku = new Sudoku(9);
+                    tailleSudoku = 9;
                     break;
 
             }
@@ -89,6 +123,9 @@ namespace IA_TP2
             dataShow.MinRowHeight = 600 / actSudoku.size;
             dataShow.MaxColumnWidth = 800 / actSudoku.size;
             dataShow.FontSize = 19 * 16 / actSudoku.size;
+
+            
+
             if (actSudoku.size != 9) return;
 
             actSudoku.mySudoku[3][0].setValue(1);
@@ -127,10 +164,177 @@ namespace IA_TP2
             actSudoku.mySudoku[3][8].setValue(4);
             actSudoku.mySudoku[5][8].setValue(1);
 
+            
+
             Console.WriteLine("let's go!");
             actSudoku = Algorithm.backtracking(actSudoku);
             Console.WriteLine("finito");
 
+            if (tailleSudoku == 9)
+            {
+                Color9();
+            }
+            else if (tailleSudoku == 16)
+            {
+                Color16();
+            }
+            else if (tailleSudoku == 25)
+            {
+                Color25();
+            }
+            else if (tailleSudoku == 36)
+            {
+                Color36();
+            }
+
+
+        }
+
+        private void Color9()
+        {
+            dataShow.UpdateLayout();
+            for (i = 0; i < 3; i++)
+            {
+                for (j = 0; j < 3; j++)
+                {
+                    DataGridRow dgRow = dataShow.ItemContainerGenerator.ContainerFromIndex(i) as DataGridRow;
+                    DataGridCell cell = dataShow.Columns[j].GetCellContent(dgRow).Parent as DataGridCell;
+                    cell.Background = white;
+                }
+            }
+
+            for (i = 3; i < 6; i++)
+            {
+                for (j = 3; j < 6; j++)
+                {
+                    DataGridRow dgRow = dataShow.ItemContainerGenerator.ContainerFromIndex(i) as DataGridRow;
+                    DataGridCell cell = dataShow.Columns[j].GetCellContent(dgRow).Parent as DataGridCell;
+                    cell.Background = white;
+                }
+            }
+
+            for (i = 0; i < 3; i++)
+            {
+                for (j = 6; j < 9; j++)
+                {
+                    DataGridRow dgRow = dataShow.ItemContainerGenerator.ContainerFromIndex(i) as DataGridRow;
+                    DataGridCell cell = dataShow.Columns[j].GetCellContent(dgRow).Parent as DataGridCell;
+                    cell.Background = white;
+                }
+            }
+
+            for (i = 6; i < 9; i++)
+            {
+                for (j = 0; j < 3; j++)
+                {
+                    DataGridRow dgRow = dataShow.ItemContainerGenerator.ContainerFromIndex(i) as DataGridRow;
+                    DataGridCell cell = dataShow.Columns[j].GetCellContent(dgRow).Parent as DataGridCell;
+                    cell.Background = white;
+                }
+            }
+
+            for (i = 6; i < 9; i++)
+            {
+                for (j = 6; j < 9; j++)
+                {
+                    DataGridRow dgRow = dataShow.ItemContainerGenerator.ContainerFromIndex(i) as DataGridRow;
+                    DataGridCell cell = dataShow.Columns[j].GetCellContent(dgRow).Parent as DataGridCell;
+                    cell.Background = white;
+                }
+            }
+        }
+
+        private void Color16()
+        {
+            /*
+            for (i = 0; i < 4; i++)
+            {
+                for (j = 0; j < 4; j++)
+                {
+                    DataGridRow dgRow = dataShow.ItemContainerGenerator.ContainerFromIndex(i) as DataGridRow;
+                    DataGridCell cell = dataShow.Columns[j].GetCellContent(dgRow).Parent as DataGridCell;
+                    cell.Background = white;
+                }
+            }
+
+            for (i = 0; i < 4; i++)
+            {
+                for (j = 8; j < 12; j++)
+                {
+                    DataGridRow dgRow = dataShow.ItemContainerGenerator.ContainerFromIndex(i) as DataGridRow;
+                    DataGridCell cell = dataShow.Columns[j].GetCellContent(dgRow).Parent as DataGridCell;
+                    cell.Background = white;
+                }
+            }
+
+            for (i = 4; i < 8; i++)
+            {
+                for (j = 4; j < 8; j++)
+                {
+                    DataGridRow dgRow = dataShow.ItemContainerGenerator.ContainerFromIndex(i) as DataGridRow;
+                    DataGridCell cell = dataShow.Columns[j].GetCellContent(dgRow).Parent as DataGridCell;
+                    cell.Background = white;
+                }
+            }
+
+            for (i = 4; i < 8; i++)
+            {
+                for (j = 12; j < 16; j++)
+                {
+                    DataGridRow dgRow = dataShow.ItemContainerGenerator.ContainerFromIndex(i) as DataGridRow;
+                    DataGridCell cell = dataShow.Columns[j].GetCellContent(dgRow).Parent as DataGridCell;
+                    cell.Background = white;
+                }
+            }
+
+            for (i = 8; i < 12; i++)
+            {
+                for (j = 0; j < 4; j++)
+                {
+                    DataGridRow dgRow = dataShow.ItemContainerGenerator.ContainerFromIndex(i) as DataGridRow;
+                    DataGridCell cell = dataShow.Columns[j].GetCellContent(dgRow).Parent as DataGridCell;
+                    cell.Background = white;
+                }
+            }
+            for (i = 8; i < 12; i++)
+            {
+                for (j = 8; j < 12; j++)
+                {
+                    DataGridRow dgRow = dataShow.ItemContainerGenerator.ContainerFromIndex(i) as DataGridRow;
+                    DataGridCell cell = dataShow.Columns[j].GetCellContent(dgRow).Parent as DataGridCell;
+                    cell.Background = white;
+                }
+            }
+
+            for (i = 12; i < 16; i++)
+            {
+                for (j = 4; j < 8; j++)
+                {
+                    DataGridRow dgRow = dataShow.ItemContainerGenerator.ContainerFromIndex(i) as DataGridRow;
+                    DataGridCell cell = dataShow.Columns[j].GetCellContent(dgRow).Parent as DataGridCell;
+                    cell.Background = white;
+                }
+            }
+
+            for (i = 12; i < 16; i++)
+            {
+                for (j = 12; j < 16; j++)
+                {
+                    DataGridRow dgRow = dataShow.ItemContainerGenerator.ContainerFromIndex(i) as DataGridRow;
+                    DataGridCell cell = dataShow.Columns[j].GetCellContent(dgRow).Parent as DataGridCell;
+                    cell.Background = white;
+                }
+            }
+            */
+        }
+
+        private void Color25()
+        {
+
+        }
+
+        private void Color36()
+        {
 
         }
     }

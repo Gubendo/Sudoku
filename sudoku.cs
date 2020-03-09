@@ -49,7 +49,7 @@ namespace IA_TP2
         }
         public bool isFixed()
         {
-            if(domain.Count==1 || value!=null)
+            if(domain.Count==1 && value!=null)
             {
                 return true;
             }
@@ -58,7 +58,7 @@ namespace IA_TP2
 
         public bool isLost()
         {
-            if(domain.Count==0 || value!=null)
+            if(domain.Count==0)
             {
                 return true;
             }

@@ -34,7 +34,7 @@ namespace IA_TP2
 
         }
 
-        public static void AC3(ref Sudoku sudoku)
+        public static void AC3(Sudoku sudoku)
         {
 
             Queue<Arc> queue = new Queue<Arc>();
@@ -100,16 +100,21 @@ namespace IA_TP2
         {
             int i = 0;
             int j = 0;
+            int valmin = 10;
             List<(int, int)> ret = new List<(int, int)>();
 
             for (int indexI = 0; indexI < sudoku.size; indexI++)
             {
                 for (int indexJ = 0; indexJ < sudoku.size; indexJ++)
                 {
-                    if (sudoku.mySudoku[i][j].domain.Count >= sudoku.mySudoku[indexI][indexJ].domain.Count)
+                    /*Console.WriteLine("test if : " + indexI + indexJ);
+                    Console.WriteLine("test if 1 : " + sudoku.mySudoku[indexI][indexJ].domain.Count);
+                    Console.WriteLine("test if 2 : " + sudoku.mySudoku[indexI][indexJ].isFixed());*/
+                    if ((valmin >= sudoku.mySudoku[indexI][indexJ].domain.Count) && !(sudoku.mySudoku[indexI][indexJ].isFixed()))
                     {
                         i = indexI;
                         j = indexJ;
+                        valmin = sudoku.mySudoku[indexI][indexJ].domain.Count;
                         ret.Add((i, j));
                     }
                 }
@@ -123,8 +128,8 @@ namespace IA_TP2
          */
         public static (int, int) selectDH(Sudoku sudoku, List<(int, int)> resultMRV)
         {
-            int i = 0;
-            int j = 0;
+            int i = resultMRV.ElementAt(0).Item1;
+            int j = resultMRV.ElementAt(0).Item2;
             (int, int) current;
             int length = resultMRV.Count;
             for (int k = 0; k < length; k++)
@@ -215,6 +220,18 @@ namespace IA_TP2
             }
              return false;
         }
+        public static bool isFinished(Sudoku sudoku)
+        {
+            for (int i = 0; i < sudoku.size; i++)
+            {
+                for (int j = 0; j < sudoku.size; j++)
+                {
+                    if (!sudoku.mySudoku[i][j].isFixed()) { return false; }
+                }
+            }
+            return true;
+        }
+
 
         public static Sudoku backtracking(Sudoku sudoku)
         {
@@ -232,17 +249,19 @@ namespace IA_TP2
             {
                 //LCV pas correct pour le moment
                 //int val = selectLCV(sudoku, var);
+                Console.WriteLine(sudoku.mySudoku[var.Item1][var.Item2].domain.Count);
                 int val = sudoku.mySudoku[var.Item1][var.Item2].domain[i];
                 sudoku.mySudoku[var.Item1][var.Item2].setValue(val);
 
                 // 3 - AC3 => refresh du domaine de chaque case
-                AC3(sudoku);;
+                AC3(sudoku);
+                ////// PROBLEME ICI PAS DE REFRESH EFFECTUE
 
                 //detection de l'échec
                 if (isLost(sudoku))
                 {
-                     // le resultat trouvé n'était pas viable => on revient en arrière
-                     sudoku = tmp;
+                    // le resultat trouvé n'était pas viable => on revient en arrière
+                    sudoku = tmp;
                 }
                 else
                 {
@@ -250,11 +269,14 @@ namespace IA_TP2
                     try
                     {
                         flag = true;
-                        result = backtracking(sudoku);
+                        if (!isFinished(sudoku))
+                        {
+                            result = backtracking(sudoku);
+                        }
                     }
                     catch (Failure ex)
                     {
-                        // le resultat trouvé n'était pas viable => on revient en arrière
+                        // le resultat trouvé n'était pas viable => on revient en arrière  
                         sudoku = tmp;
                         flag = false;
 

@@ -9,13 +9,53 @@ namespace IA_TP2
 {
     class Algorithm
     {
+        private static Random rnd;
+        private static object syncObj = new object();
+
+        private static void InitRandomNumber(int seed)
+        {
+            rnd = new Random(seed);
+        }
+        private static int GenerateRandomNumber(int max)
+        {
+            lock (syncObj)
+            {
+                if (rnd == null)
+                {
+                    rnd = new Random();
+                }
+                return rnd.Next(0, max);
+            }
+
+        }
         public static Sudoku ReadCSV()
         {
             Sudoku sudoku = new Sudoku(9);
             int i = 0;
+            int rnd = GenerateRandomNumber(4);
 
+            StreamReader reader;
+
+            switch (rnd)
+            {
+                case 0:
+                    reader = new StreamReader(@"sudoku1.csv");
+                    break;
+                case 1:
+                    reader = new StreamReader(@"sudoku2.csv");
+                    break;
+                case 2:
+                    reader = new StreamReader(@"sudoku3.csv");
+                    break;
+                case 3:
+                    reader = new StreamReader(@"sudoku4.csv");
+                    break;
+                default:
+                    reader = new StreamReader(@"sudoku1.csv");
+                    break;
+            }
             //Remplacer par adresse du fichier
-            using (var reader = new StreamReader(@"test.csv"))
+            using (reader)
             {
 
                 while (!reader.EndOfStream)
@@ -23,7 +63,7 @@ namespace IA_TP2
                     var line = reader.ReadLine();
                     var values = line.Split(';');
 
-                    for (int j = 1; j < 9; j++)
+                    for (int j = 0; j < 9; j++)
                     {
                         //Console.Write(Int16.Parse(values[j]));
                         sudoku.mySudoku[i][j].setValue(Int16.Parse(values[j]));

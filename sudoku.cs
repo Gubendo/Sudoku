@@ -144,6 +144,31 @@ namespace IA_TP2
                 }
             }     
         }
+        public Sudoku(Sudoku tmp, bool generate)
+        {
+            int size = tmp.size;
+            mySudoku = new Case[size][];
+            this.size = size;
+            if (Math.Sqrt(size) % 1 != 0)
+            {
+                //ERROR
+                Console.WriteLine("ERROOOOOOR");
+                return;
+            }
+            this.subSize = (int)Math.Sqrt(size);
+            for (int i = 0; i < size; i++)
+            {
+                mySudoku[i] = new Case[size];
+                for (int j = 0; j < size; j++)
+                {
+                    mySudoku[i][j] = new Case(tmp.mySudoku[i][j]);
+                }
+            }
+            if(generate)
+            {
+                this.generateRelatives();
+            }
+        }
 
         public void generateRelatives()
         {

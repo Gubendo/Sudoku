@@ -92,8 +92,16 @@ namespace IA_TP2
 
         private void Button_Solve(object sender, RoutedEventArgs e)
         {
-            
-            
+
+            for(int i = 0; i < 9;i++)
+            {
+                for(int j=0;j<9;j++)
+                {
+                    Console.Write(actSudoku.mySudoku[i][j] +" ; ");
+                }
+                Console.WriteLine();
+            }
+            Console.WriteLine("ICI ?" + actSudoku.mySudoku[0][0]);
             actSudoku = Algorithm.backtracking(actSudoku);
             
             
@@ -132,7 +140,7 @@ namespace IA_TP2
             switch (sizeCombo.SelectedIndex)
             {
                 case 0:
-                    actSudoku = Algorithm.ReadCSV();
+                    actSudoku = new Sudoku(Algorithm.ReadCSV());
                     tailleSudoku = 9;
                     break;
                 case 1:
@@ -163,6 +171,7 @@ namespace IA_TP2
             
 
             if (actSudoku.size != 9) return;
+           
 
             /*
             actSudoku.mySudoku[3][0].setValue(1);

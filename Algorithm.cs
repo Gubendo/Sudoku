@@ -35,6 +35,7 @@ namespace IA_TP2
             int rnd = GenerateRandomNumber(4);
             StreamReader reader;
 
+            /*
             switch (rnd)
             {
                 case 0:
@@ -53,6 +54,9 @@ namespace IA_TP2
                     reader = new StreamReader(@"sudoku1.csv");
                     break;
             }
+            */
+
+            reader = new StreamReader(@"test.csv");
             //Remplacer par adresse du fichier
             using (reader)
             {

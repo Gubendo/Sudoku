@@ -33,7 +33,6 @@ namespace IA_TP2
             Sudoku sudoku = new Sudoku(9);
             int i = 0;
             int rnd = GenerateRandomNumber(4);
-
             StreamReader reader;
 
             /*
@@ -70,6 +69,7 @@ namespace IA_TP2
                     for (int j = 0; j < 9; j++)
                     {
                         //Console.Write(Int16.Parse(values[j]));
+                        if(Int16.Parse(values[j])!=0)
                         sudoku.mySudoku[i][j].setValue(Int16.Parse(values[j]));
                     }
                     i = i + 1;
@@ -148,7 +148,7 @@ namespace IA_TP2
                 }
                 if (!allow)
                 {
-                    if (arc.xi.i==0 && arc.xi.j==0) { Console.WriteLine("valueI : " + valueI + " i :" + arc.xi.i + " j :" + arc.xi.j + " autre case i :" + arc.xj.i + " j :" + arc.xj.j); }
+                    if (arc.xi.i==0 && arc.xi.j==0) { Console.WriteLine("valueI : " + valueI + " i :" + arc.xi.i + " j :" + arc.xi.j + " autre case i :" + arc.xj.i + " j :" + arc.xj.j + arc.xj.getValue()); }
                     
                     arc.xi.domain.Remove(valueI);
                     removed = true;
@@ -325,13 +325,14 @@ namespace IA_TP2
 
             // 2 - Selectionner val pour var choisie : utiliser LCV
             int l = sudoku.mySudoku[var.Item1][var.Item2].domain.Count;
+            Console.WriteLine("KEBAB ===> " + sudoku.mySudoku[var.Item1][var.Item2].domain.Count);
             for (int i=0; i<l; i++)
             {
                 //LCV pas correct pour le moment
                 //int val = selectLCV(sudoku, var);
 
                 int val = sudoku.mySudoku[var.Item1][var.Item2].domain[i];
-                Console.WriteLine(sudoku.mySudoku[var.Item1][var.Item2].domain.Count);
+                Console.WriteLine("ICI ===> " + sudoku.mySudoku[var.Item1][var.Item2].domain.Count);
                 AC3(sudoku);
                 sudoku.mySudoku[var.Item1][var.Item2].setValue(val);
                 

@@ -140,7 +140,8 @@ namespace IA_TP2
             switch (sizeCombo.SelectedIndex)
             {
                 case 0:
-                    actSudoku = new Sudoku(Algorithm.ReadCSV());
+                    //actSudoku = new Sudoku(Algorithm.ReadCSV());
+                    actSudoku = new Sudoku(9);
                     tailleSudoku = 9;
                     break;
                 case 1:
@@ -173,7 +174,7 @@ namespace IA_TP2
             if (actSudoku.size != 9) return;
            
 
-            /* FACILE 1
+            
             actSudoku.mySudoku[3][0].setValue(1);
             actSudoku.mySudoku[5][0].setValue(5);
             actSudoku.mySudoku[7][0].setValue(6);
@@ -209,7 +210,7 @@ namespace IA_TP2
             actSudoku.mySudoku[1][8].setValue(9);
             actSudoku.mySudoku[3][8].setValue(4);
             actSudoku.mySudoku[5][8].setValue(1);
-            */
+            
 
             /* DIABOLIQUE
             actSudoku.mySudoku[0][0].setValue(1);
@@ -256,7 +257,7 @@ namespace IA_TP2
             actSudoku.mySudoku[0][8].setValue(4);
             */
 
-            
+            /* FACILE 2
             actSudoku.mySudoku[0][0].setValue(8);
             actSudoku.mySudoku[1][0].setValue(2);
             actSudoku.mySudoku[2][0].setValue(3);
@@ -312,6 +313,8 @@ namespace IA_TP2
             actSudoku.mySudoku[5][8].setValue(7);
 
             actSudoku.mySudoku[7][8].setValue(8);
+
+            */
             
 
             //actSudoku = Algorithm.backtracking(actSudoku);

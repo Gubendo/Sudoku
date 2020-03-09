@@ -50,6 +50,12 @@ namespace IA_TP2
             //relatives.RemoveAll(c => c.isFixed());
             return relatives;
         }
+        public List<Case> getRelativesNonFixed()
+        {
+            List<Case> tmp = new List<Case>(relatives);
+            tmp.RemoveAll(c => c.isFixed());
+            return tmp;
+        }
         public void addRelative(ref Case relative)
         {
             if (!relatives.Contains(relative) && relative != this)

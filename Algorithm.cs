@@ -159,8 +159,8 @@ namespace IA_TP2
          */
         public static List<(int, int)> selectMRV(Sudoku sudoku)
         {
-            int i = 0;
-            int j = 0;
+            /*int i = 0;
+            int j = 0;*/
             int valmin = 10;
             List<(int, int)> ret = new List<(int, int)>();
 
@@ -171,15 +171,26 @@ namespace IA_TP2
                     /*Console.WriteLine("test if : " + indexI + indexJ);
                     Console.WriteLine("test if 1 : " + sudoku.mySudoku[indexI][indexJ].domain.Count);
                     Console.WriteLine("test if 2 : " + sudoku.mySudoku[indexI][indexJ].isFixed());*/
-                    if ((valmin >= sudoku.mySudoku[indexI][indexJ].domain.Count) && !(sudoku.mySudoku[indexI][indexJ].isFixed()))
+                    if ((valmin > sudoku.mySudoku[indexI][indexJ].domain.Count) && !(sudoku.mySudoku[indexI][indexJ].isFixed()))
                     {
-                        i = indexI;
-                        j = indexJ;
+                        /*i = indexI;
+                        j = indexJ;*/
                         valmin = sudoku.mySudoku[indexI][indexJ].domain.Count;
-                        ret.Add((i, j));
+                        //ret.Add((i, j));
                     }
                 }
             }
+            for (int indexI = 0; indexI < sudoku.size; indexI++)
+            {
+                for (int indexJ = 0; indexJ < sudoku.size; indexJ++)
+                {
+                    if ((valmin == sudoku.mySudoku[indexI][indexJ].domain.Count) && !(sudoku.mySudoku[indexI][indexJ].isFixed()))
+                    {
+                        ret.Add((indexI, indexJ));
+                    }
+                }
+            }
+
             return ret;
         }
 
@@ -196,7 +207,7 @@ namespace IA_TP2
             for (int k = 0; k < length; k++)
             {
                 current = resultMRV.ElementAt(k);
-                if (sudoku.mySudoku[i][j].getRelatives().Count < sudoku.mySudoku[current.Item1][current.Item2].getRelatives().Count)
+                if (sudoku.mySudoku[i][j].getRelativesNonFixed().Count < sudoku.mySudoku[current.Item1][current.Item2].getRelativesNonFixed().Count)
                 {
                     i = current.Item1;
                     j = current.Item2;
@@ -314,17 +325,16 @@ namespace IA_TP2
             {
                 //LCV pas correct pour le moment
                 //int val = selectLCV(sudoku, var);
-                Console.WriteLine("i = "+var.Item1+" j = "+var.Item2);
-                Console.WriteLine(sudoku.mySudoku[var.Item1][var.Item2].domain.Count);
-                //Console.WriteLine(tmp.mySudoku[var.Item1][var.Item2].domain.Count);
+
                 int val = sudoku.mySudoku[var.Item1][var.Item2].domain[i];
-                sudoku.mySudoku[var.Item1][var.Item2].setValue(val);
-                Console.WriteLine("val : "+val);
                 Console.WriteLine(sudoku.mySudoku[var.Item1][var.Item2].domain.Count);
+                AC3(sudoku);
+                sudoku.mySudoku[var.Item1][var.Item2].setValue(val);
+                
+                Console.WriteLine("Affection de la case i : "+ var.Item1 + " j: "+ var.Item2 + " avec la valeur : "+val);
 
                 // 3 - AC3 => refresh du domaine de chaque case
                 AC3(sudoku);
-                Console.WriteLine(sudoku.mySudoku[var.Item1][var.Item2].domain.Count);
 
                 //detection de l'échec
                 if (isLost(sudoku))
@@ -346,6 +356,7 @@ namespace IA_TP2
                     }
                     catch (Failure ex)
                     {
+                        Console.WriteLine("i = " + i);
                         // le resultat trouvé n'était pas viable => on revient en arrière  
                         sudoku = new Sudoku(tmp);
                         flag = false;

@@ -142,7 +142,8 @@ namespace IA_TP2
                 {
                     mySudoku[i][j] = new Case(tmp.mySudoku[i][j]);
                 }
-            }     
+            }
+            this.generateRelatives();
         }
         public Sudoku(Sudoku tmp, bool generate)
         {

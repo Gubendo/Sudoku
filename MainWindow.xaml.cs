@@ -89,14 +89,50 @@ namespace IA_TP2
             }
 
         }
-        
-        //LA VIE N'EST QUE MENSONGE
+
+        private void Button_Solve(object sender, RoutedEventArgs e)
+        {
+            
+            
+            actSudoku = Algorithm.backtracking(actSudoku);
+            
+            
+            dataShow.ItemsSource2D = actSudoku.mySudoku;
+            /*dataShow.ColumnHeaderHeight = 0;
+            dataShow.RowHeaderWidth = 0;
+            dataShow.MinRowHeight = 600 / actSudoku.size;
+            dataShow.MaxColumnWidth = 800 / actSudoku.size;
+            dataShow.FontSize = 19 * 16 / actSudoku.size;
+            */
+            
+
+
+            if (tailleSudoku == 9)
+            {
+                Color9();
+            }
+            else if (tailleSudoku == 16)
+            {
+                Color16();
+            }
+            else if (tailleSudoku == 25)
+            {
+                Color25();
+            }
+            else if (tailleSudoku == 36)
+            {
+                Color36();
+            }
+            
+
+        }
+
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
             switch (sizeCombo.SelectedIndex)
             {
                 case 0:
-                    actSudoku = new Sudoku(9);
+                    actSudoku = Algorithm.ReadCSV();
                     tailleSudoku = 9;
                     break;
                 case 1:
@@ -128,6 +164,7 @@ namespace IA_TP2
 
             if (actSudoku.size != 9) return;
 
+            /*
             actSudoku.mySudoku[3][0].setValue(1);
             actSudoku.mySudoku[5][0].setValue(5);
             actSudoku.mySudoku[7][0].setValue(6);
@@ -164,8 +201,9 @@ namespace IA_TP2
             actSudoku.mySudoku[3][8].setValue(4);
             actSudoku.mySudoku[5][8].setValue(1);
 
-            
-            actSudoku = Algorithm.backtracking(actSudoku);
+            */
+
+            //actSudoku = Algorithm.backtracking(actSudoku);
 
             if (tailleSudoku == 9)
             {
@@ -183,6 +221,8 @@ namespace IA_TP2
             {
                 Color36();
             }
+
+
 
 
         }

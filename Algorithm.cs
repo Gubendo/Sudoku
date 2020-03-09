@@ -9,13 +9,13 @@ namespace IA_TP2
 {
     class Algorithm
     {
-        public static void ReadCSV()
+        public static Sudoku ReadCSV()
         {
-            Sudoku sukodu = new Sudoku(9);
+            Sudoku sudoku = new Sudoku(9);
             int i = 0;
 
             //Remplacer par adresse du fichier
-            using (var reader = new StreamReader(@"/Users/yassirchekour/Desktop/test.csv"))
+            using (var reader = new StreamReader(@"test.csv"))
             {
 
                 while (!reader.EndOfStream)
@@ -26,11 +26,13 @@ namespace IA_TP2
                     for (int j = 1; j < 9; j++)
                     {
                         //Console.Write(Int16.Parse(values[j]));
-                        sukodu.mySudoku[i][j].setValue(Int16.Parse(values[j]));
+                        sudoku.mySudoku[i][j].setValue(Int16.Parse(values[j]));
                     }
                     i = i + 1;
                 }
             }
+
+            return sudoku;
 
         }
 

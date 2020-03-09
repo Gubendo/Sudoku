@@ -44,6 +44,15 @@ namespace IA_TP2
             {
                 for (int j = 0; j < sudoku.size; j++)
                 {
+                    Console.WriteLine("//AC3// Taille RELATIVES : " + sudoku.getRelatives(i, j).Count);
+                    if ( i == 0 && j ==0)
+                    {
+                        Console.WriteLine(" relatives de 0 0");
+                        foreach (Case c in sudoku.getRelatives(i, j))
+                        {
+                            Console.WriteLine("i = "+c.i + " j = "+c.j);
+                        }
+                    }
                     for (int index = 0; index < sudoku.getRelatives(i, j).Count; index++)
                     {
                         Case actCase = sudoku.mySudoku[i][j].getRelatives()[index];
@@ -235,8 +244,8 @@ namespace IA_TP2
 
         public static Sudoku backtracking(Sudoku sudoku)
         {
-            Sudoku result = sudoku;
-            Sudoku tmp = sudoku;
+            Sudoku result = new Sudoku(sudoku);
+            Sudoku tmp =  new Sudoku(sudoku);
             bool flag;
 
             // 1 - Selectionner var non assigné : utiliser MRV puis DH en cas d'égalité
@@ -261,7 +270,7 @@ namespace IA_TP2
                 if (isLost(sudoku))
                 {
                     // le resultat trouvé n'était pas viable => on revient en arrière
-                    sudoku = tmp;
+                    sudoku = new Sudoku(tmp);
                 }
                 else
                 {
@@ -277,7 +286,7 @@ namespace IA_TP2
                     catch (Failure ex)
                     {
                         // le resultat trouvé n'était pas viable => on revient en arrière  
-                        sudoku = tmp;
+                        sudoku = new Sudoku(tmp);
                         flag = false;
 
                     }

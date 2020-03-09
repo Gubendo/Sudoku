@@ -17,10 +17,20 @@ namespace IA_TP2
         {
             this.i = i;
             this.j = j;
-            this.value = null;
+            this.value = 0;
             relatives = new List<Case>();
             domain = new List<int>(Enumerable.Range(1,9).ToArray()); 
         }
+
+        public Case(Case tmp)
+        {
+            this.i = tmp.i;
+            this.j = tmp.j;
+            this.value = tmp.value;
+            this.relatives=tmp.relatives;
+            this.domain = tmp.domain;
+        }
+
         public int? getValue()
         {
             return value;
@@ -49,7 +59,7 @@ namespace IA_TP2
         }
         public bool isFixed()
         {
-            if(domain.Count==1 && value!=null)
+            if(domain.Count==1 && value!=0)
             {
                 return true;
             }
@@ -104,6 +114,29 @@ namespace IA_TP2
                     mySudoku[i][j] = new Case(i, j);
                 }
             }
+            this.generateRelatives();
+        }
+
+        public Sudoku(Sudoku tmp)
+        {
+            int size = tmp.size;
+            mySudoku = new Case[size][];
+            this.size = size;
+            if(Math.Sqrt(size)%1!=0)
+            {
+                //ERROR
+                Console.WriteLine("ERROOOOOOR");
+                return;
+            }
+            this.subSize = (int ) Math.Sqrt(size);
+            for (int i = 0; i < size; i++)
+            {
+                mySudoku[i] = new Case[size];
+                for (int j = 0; j < size; j++)
+                {
+                    mySudoku[i][j] = new Case(tmp.mySudoku[i][j]);
+                }
+            }     
         }
 
         public void generateRelatives()

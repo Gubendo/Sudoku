@@ -19,7 +19,7 @@
 
                     <Button Click="Button_Click_1">Generate Game</Button>
 
-                    <Button>Solve Game</Button>
+                    <Button Click = "Button_Solve">Solve Game</Button>
 
                     <Button>Quit</Button>
 

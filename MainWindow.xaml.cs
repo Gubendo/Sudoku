@@ -137,7 +137,7 @@ namespace IA_TP2
             actSudoku.mySudoku[8][1].setValue(1);
 
             actSudoku.mySudoku[0][2].setValue(9);
-            actSudoku.mySudoku[3][2].setValue(1);
+ 
             actSudoku.mySudoku[7][2].setValue(3);
 
             actSudoku.mySudoku[2][3].setValue(7);

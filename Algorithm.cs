@@ -15,7 +15,7 @@ namespace IA_TP2
             int i = 0;
 
             //Remplacer par adresse du fichier
-            using (var reader = new StreamReader(@"/Users/yassirchekour/Desktop/test.csv"))
+            using (var reader = new StreamReader(@"test.csv"))
             {
 
                 while (!reader.EndOfStream)

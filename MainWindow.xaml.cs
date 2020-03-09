@@ -165,10 +165,7 @@ namespace IA_TP2
             actSudoku.mySudoku[5][8].setValue(1);
 
             
-
-            Console.WriteLine("let's go!");
-            //actSudoku = Algorithm.backtracking(actSudoku);
-            Console.WriteLine("finito");
+            actSudoku = Algorithm.backtracking(actSudoku);
 
             if (tailleSudoku == 9)
             {

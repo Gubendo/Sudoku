@@ -177,28 +177,31 @@ namespace IA_TP2
 
             bool impossible = false;
 
-            // On parcourt les différentes valeurs possibles de la variable de base
- 
-            foreach(int value in sudoku.mySudoku[i][j].domain)
-            {
-                // On applique la valeur value (comment faire ?)
+            Sudoku tmp = new Sudoku(sudoku);
 
-                // sudoku.mySudoku[i][j].setValue(value)
-                // AC3(sudoku);
+            // On parcourt les différentes valeurs possibles de la variable de base
+
+            foreach (int value in sudoku.mySudoku[i][j].domain)
+            {
+                // On applique la valeur value
+
+                tmp = new Sudoku(sudoku);
+                tmp.mySudoku[i][j].setValue(value);
+                AC3(tmp);
 
                 // On parcourt les variables relatives
 
-                foreach (Case relative in sudoku.getRelatives(i,j))
+                foreach (Case relative in tmp.getRelatives(i,j))
                 {
                     // On somme la taille de tous les domaines (si différente de 0)
 
-                    if (sudoku.mySudoku[relative.i][relative.j].domain.Count == 0)
+                    if (tmp.mySudoku[relative.i][relative.j].domain.Count == 0)
                     {
                         impossible = true;
                     }
                     else
                     {
-                        somme += sudoku.mySudoku[relative.i][relative.j].domain.Count;
+                        somme += tmp.mySudoku[relative.i][relative.j].domain.Count;
                     }
                 }
 

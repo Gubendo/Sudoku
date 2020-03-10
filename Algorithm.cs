@@ -77,7 +77,6 @@ namespace IA_TP2
 
                     for (int j = 0; j < 9; j++)
                     {
-                        //Console.Write(Int16.Parse(values[j]));
                         if(Int16.Parse(values[j])!=0)
                         sudoku.mySudoku[i][j].setValue(Int16.Parse(values[j]));
                     }
@@ -106,7 +105,6 @@ namespace IA_TP2
 
                     for (int j = 0; j < 9; j++)
                     {
-                        //Console.Write(Int16.Parse(values[j]));
                         if (Int16.Parse(values[j]) != 0)
                             sudoku.mySudoku[i][j].setValue(Int16.Parse(values[j]));
                     }
@@ -132,7 +130,7 @@ namespace IA_TP2
                     for (int index = 0; index < sudoku.getRelatives(i, j).Count; index++)
                     {
                         Case actCase = sudoku.mySudoku[i][j].getRelatives()[index];
-                        queue.Enqueue(new Arc(sudoku, i, j, actCase.i, actCase.j));//ref sudoku.mySudoku[i][j], ref actCase));
+                        queue.Enqueue(new Arc(sudoku, i, j, actCase.i, actCase.j));
                     }
                 }
             }
@@ -145,7 +143,6 @@ namespace IA_TP2
                     {
                         Case actCase = actArc.xi.getRelatives()[index];
                         queue.Enqueue(new Arc(sudoku, actCase.i, actCase.j,actArc.xi.i,actArc.xi.j));
-                        //queue.Enqueue(new Arc(ref actCase, ref actArc.xi));
                     }
                 }
             }
@@ -159,16 +156,13 @@ namespace IA_TP2
          */
         public static bool removeInconsistentValues(Arc arc)
         {
-            //Console.WriteLine("test remove i: " + arc.xi.i + " j = " + arc.xi.j+ "// i: " + arc.xj.i + " j = " + arc.xj.j);
             bool removed = false;
             int length = arc.xi.domain.Count;
             int valueI;
             int k = 0;
             for (int i =0; i<length; i++)
-            //foreach (int valueI in arc.xi.domain)
             {
                 valueI = arc.xi.domain.ElementAt(k);
-               // Console.WriteLine("value I boucle :" + valueI+" k ="+k);
                 bool allow = false;
                 foreach (int valueJ in arc.xj.domain)
                 {
@@ -179,8 +173,6 @@ namespace IA_TP2
                 }
                 if (!allow)
                 {
-                    //if (arc.xi.i==0 && arc.xi.j==0) { Console.WriteLine("valueI : " + valueI + " i :" + arc.xi.i + " j :" + arc.xi.j + " autre case i :" + arc.xj.i + " j :" + arc.xj.j + arc.xj.getValue()); }
-                    
                     arc.xi.domain.Remove(valueI);
                     removed = true;
                 }
@@ -194,8 +186,6 @@ namespace IA_TP2
          */
         public static List<(int, int)> selectMRV(Sudoku sudoku)
         {
-            /*int i = 0;
-            int j = 0;*/
             int valmin = 10;
             List<(int, int)> ret = new List<(int, int)>();
 
@@ -203,15 +193,10 @@ namespace IA_TP2
             {
                 for (int indexJ = 0; indexJ < sudoku.size; indexJ++)
                 {
-                    /*Console.WriteLine("test if : " + indexI + indexJ);
-                    Console.WriteLine("test if 1 : " + sudoku.mySudoku[indexI][indexJ].domain.Count);
-                    Console.WriteLine("test if 2 : " + sudoku.mySudoku[indexI][indexJ].isFixed());*/
+
                     if ((valmin > sudoku.mySudoku[indexI][indexJ].domain.Count) && !(sudoku.mySudoku[indexI][indexJ].isFixed()))
                     {
-                        /*i = indexI;
-                        j = indexJ;*/
                         valmin = sudoku.mySudoku[indexI][indexJ].domain.Count;
-                        //ret.Add((i, j));
                     }
                 }
             }
@@ -274,20 +259,8 @@ namespace IA_TP2
                 // On applique la valeur value
                 
                 tmp = new Sudoku(sudoku);
-                /*Console.WriteLine("1/ taille du domaine sudoku i/j : " + sudoku.mySudoku[i][j].domain.Count);
-                Console.WriteLine("1/ taille du domaine TMP i/j : " + tmp.mySudoku[i][j].domain.Count);
-                Console.WriteLine("1/ valeur de la case sudoku i/j : " + sudoku.mySudoku[i][j].getValue());
-                Console.WriteLine("1/ valeur de la case TMP i/j : " + tmp.mySudoku[i][j].getValue());*/
                 tmp.mySudoku[i][j].setValue(value);
-                /*Console.WriteLine("2/ taille du domaine sudoku i/j : " + sudoku.mySudoku[i][j].domain.Count);
-                Console.WriteLine("2/ taille du domaine TMP i/j : " + tmp.mySudoku[i][j].domain.Count);
-                Console.WriteLine("2/ valeur de la case sudoku i/j : " + sudoku.mySudoku[i][j].getValue());
-                Console.WriteLine("2/ valeur de la case TMP i/j : " + tmp.mySudoku[i][j].getValue());*/
                 AC3(tmp);
-                /*Console.WriteLine("3/ taille du domaine sudoku i/j : " + sudoku.mySudoku[i][j].domain.Count);
-                Console.WriteLine("3/ taille du domaine TMP i/j : " + tmp.mySudoku[i][j].domain.Count);
-                Console.WriteLine("3/ valeur de la case sudoku i/j : " + sudoku.mySudoku[i][j].getValue());
-                Console.WriteLine("3/ valeur de la case TMP i/j : " + tmp.mySudoku[i][j].getValue());*/
 
                 // On parcourt les variables relatives
 
@@ -312,15 +285,8 @@ namespace IA_TP2
                     sommeMin = somme;
                     minVal = value;
                 }
-
-                // On annule l'application de la valeur et on reset les variables
-
-                // sudoku.mySudoku[i][j].setValue(0)
-                // AC3(sudoku);
-
                 somme = 0;
                 impossible = false;
-
             }
 
             if(minVal == 0)
@@ -342,6 +308,8 @@ namespace IA_TP2
             }
              return false;
         }
+
+        //On test si une solution est trouvée
         public static bool isFinished(Sudoku sudoku)
         {
             for (int i = 0; i < sudoku.size; i++)
@@ -360,27 +328,18 @@ namespace IA_TP2
             Sudoku result = new Sudoku(sudoku);
             Sudoku tmp = new Sudoku(sudoku);
             bool flag;
-           /* Console.WriteLine("Taille du domaine de la case 0/6 début de backtracking SUDOKU ===> " + sudoku.mySudoku[0][6].domain.Count);
-            Console.WriteLine("Taille du domaine de la case 0/6 début de backtracking TMP ===> " + tmp.mySudoku[0][6].domain.Count);*/
             AC3(sudoku);
-            /*Console.WriteLine("Taille du domaine de la case 0/6 premier ac3 SUDOKU ===> " + sudoku.mySudoku[0][6].domain.Count);
-            Console.WriteLine("Taille du domaine de la case 0/6 premier ac3 TMP ===> " + tmp.mySudoku[0][6].domain.Count);*/
 
             // 1 - Selectionner var non assigné : utiliser MRV puis DH en cas d'égalité
             (int, int) var;
             var = selectDH(sudoku, selectMRV(sudoku));
 
-            // 2 - Selectionner val pour var choisie : utiliser LCV
             int l = sudoku.mySudoku[var.Item1][var.Item2].domain.Count;
-           /* Console.WriteLine("Domain.Count de la case choisie SUDOKU ===> " + sudoku.mySudoku[var.Item1][var.Item2].domain.Count);
-            Console.WriteLine("Domain.Count de la case choisie TMP ===> " + tmp.mySudoku[var.Item1][var.Item2].domain.Count);*/
+
             for (int i=0; i<l; i++)
             {
-                //LCV
+                // 2 - Selectionner val pour var choisie : utiliser LCV
                 int val = selectLCV(sudoku, var);
-
-                //int val = sudoku.mySudoku[var.Item1][var.Item2].domain[i];
-                Console.WriteLine(sudoku.mySudoku[var.Item1][var.Item2].domain.Count);
                 AC3(sudoku);
                 sudoku.mySudoku[var.Item1][var.Item2].setValue(val);
                 
@@ -392,7 +351,6 @@ namespace IA_TP2
                 //detection de l'échec
                 if (isLost(sudoku))
                 {
-                    Console.WriteLine("hello");
                     // le resultat trouvé n'était pas viable => on revient en arrière
                     sudoku = new Sudoku(tmp);
                     sudoku.mySudoku[var.Item1][var.Item2].domain.Remove(val);
@@ -414,7 +372,6 @@ namespace IA_TP2
                     }
                     catch (Failure ex)
                     {
-                        Console.WriteLine("i = " + i);
                         // le resultat trouvé n'était pas viable => on revient en arrière  
                         sudoku = new Sudoku(tmp);
                         sudoku.mySudoku[var.Item1][var.Item2].domain.Remove(val);

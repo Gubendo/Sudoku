@@ -49,7 +49,6 @@ namespace IA_TP2
         }
         public List<Case> getRelatives()
         {
-            //relatives.RemoveAll(c => c.isFixed());
             return relatives;
         }
         public List<Case> getRelativesNonFixed()

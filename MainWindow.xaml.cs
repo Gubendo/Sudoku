@@ -108,7 +108,7 @@ namespace IA_TP2
                 }
                 Console.WriteLine();
             }
-            Console.WriteLine("ICI ?" + actSudoku.mySudoku[0][0]);
+            //Console.WriteLine("ICI ?" + actSudoku.mySudoku[0][0]);
             actSudoku = Algorithm.backtracking(actSudoku);
             
             
@@ -123,7 +123,7 @@ namespace IA_TP2
             dataShow.UpdateLayout();
             foreach ((int,int) doubleV in fix)
             {
-                Console.WriteLine(doubleV);
+               // Console.WriteLine(doubleV);
                 DataGridRow dgRow = dataShow.ItemContainerGenerator.ContainerFromIndex(doubleV.Item1) as DataGridRow;
                 DataGridCell cell = dataShow.Columns[doubleV.Item2].GetCellContent(dgRow).Parent as DataGridCell;
                 

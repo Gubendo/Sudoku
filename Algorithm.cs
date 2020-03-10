@@ -132,7 +132,7 @@ namespace IA_TP2
                     for (int index = 0; index < sudoku.getRelatives(i, j).Count; index++)
                     {
                         Case actCase = sudoku.mySudoku[i][j].getRelatives()[index];
-                        queue.Enqueue(new Arc(ref sudoku.mySudoku[i][j], ref actCase));
+                        queue.Enqueue(new Arc(sudoku, i, j, actCase.i, actCase.j));//ref sudoku.mySudoku[i][j], ref actCase));
                     }
                 }
             }
@@ -144,7 +144,8 @@ namespace IA_TP2
                     for (int index = 0; index < actArc.xi.getRelatives().Count; index++)
                     {
                         Case actCase = actArc.xi.getRelatives()[index];
-                        queue.Enqueue(new Arc(ref actCase, ref actArc.xi));
+                        queue.Enqueue(new Arc(sudoku, actCase.i, actCase.j,actArc.xi.i,actArc.xi.j));
+                        //queue.Enqueue(new Arc(ref actCase, ref actArc.xi));
                     }
                 }
             }
@@ -273,24 +274,24 @@ namespace IA_TP2
                 // On applique la valeur value
                 
                 tmp = new Sudoku(sudoku);
-                Console.WriteLine("1/ taille du domaine sudoku i/j : " + sudoku.mySudoku[i][j].domain.Count);
+                /*Console.WriteLine("1/ taille du domaine sudoku i/j : " + sudoku.mySudoku[i][j].domain.Count);
                 Console.WriteLine("1/ taille du domaine TMP i/j : " + tmp.mySudoku[i][j].domain.Count);
                 Console.WriteLine("1/ valeur de la case sudoku i/j : " + sudoku.mySudoku[i][j].getValue());
-                Console.WriteLine("1/ valeur de la case TMP i/j : " + tmp.mySudoku[i][j].getValue());
+                Console.WriteLine("1/ valeur de la case TMP i/j : " + tmp.mySudoku[i][j].getValue());*/
                 tmp.mySudoku[i][j].setValue(value);
-                Console.WriteLine("2/ taille du domaine sudoku i/j : " + sudoku.mySudoku[i][j].domain.Count);
+                /*Console.WriteLine("2/ taille du domaine sudoku i/j : " + sudoku.mySudoku[i][j].domain.Count);
                 Console.WriteLine("2/ taille du domaine TMP i/j : " + tmp.mySudoku[i][j].domain.Count);
                 Console.WriteLine("2/ valeur de la case sudoku i/j : " + sudoku.mySudoku[i][j].getValue());
-                Console.WriteLine("2/ valeur de la case TMP i/j : " + tmp.mySudoku[i][j].getValue());
+                Console.WriteLine("2/ valeur de la case TMP i/j : " + tmp.mySudoku[i][j].getValue());*/
                 AC3(tmp);
-                Console.WriteLine("3/ taille du domaine sudoku i/j : " + sudoku.mySudoku[i][j].domain.Count);
+                /*Console.WriteLine("3/ taille du domaine sudoku i/j : " + sudoku.mySudoku[i][j].domain.Count);
                 Console.WriteLine("3/ taille du domaine TMP i/j : " + tmp.mySudoku[i][j].domain.Count);
                 Console.WriteLine("3/ valeur de la case sudoku i/j : " + sudoku.mySudoku[i][j].getValue());
-                Console.WriteLine("3/ valeur de la case TMP i/j : " + tmp.mySudoku[i][j].getValue());
+                Console.WriteLine("3/ valeur de la case TMP i/j : " + tmp.mySudoku[i][j].getValue());*/
 
                 // On parcourt les variables relatives
 
-                foreach (Case relative in tmp.getRelatives(i,j))
+                foreach (Case relative in tmp.getRelativesNonFixed(i,j))
                 {
                     // On somme la taille de tous les domaines (si différente de 0)
 
@@ -359,11 +360,11 @@ namespace IA_TP2
             Sudoku result = new Sudoku(sudoku);
             Sudoku tmp = new Sudoku(sudoku);
             bool flag;
-            Console.WriteLine("Taille du domaine de la case 0/6 début de backtracking SUDOKU ===> " + sudoku.mySudoku[0][6].domain.Count);
-            Console.WriteLine("Taille du domaine de la case 0/6 début de backtracking TMP ===> " + tmp.mySudoku[0][6].domain.Count);
+           /* Console.WriteLine("Taille du domaine de la case 0/6 début de backtracking SUDOKU ===> " + sudoku.mySudoku[0][6].domain.Count);
+            Console.WriteLine("Taille du domaine de la case 0/6 début de backtracking TMP ===> " + tmp.mySudoku[0][6].domain.Count);*/
             AC3(sudoku);
-            Console.WriteLine("Taille du domaine de la case 0/6 premier ac3 SUDOKU ===> " + sudoku.mySudoku[0][6].domain.Count);
-            Console.WriteLine("Taille du domaine de la case 0/6 premier ac3 TMP ===> " + tmp.mySudoku[0][6].domain.Count);
+            /*Console.WriteLine("Taille du domaine de la case 0/6 premier ac3 SUDOKU ===> " + sudoku.mySudoku[0][6].domain.Count);
+            Console.WriteLine("Taille du domaine de la case 0/6 premier ac3 TMP ===> " + tmp.mySudoku[0][6].domain.Count);*/
 
             // 1 - Selectionner var non assigné : utiliser MRV puis DH en cas d'égalité
             (int, int) var;
@@ -371,8 +372,8 @@ namespace IA_TP2
 
             // 2 - Selectionner val pour var choisie : utiliser LCV
             int l = sudoku.mySudoku[var.Item1][var.Item2].domain.Count;
-            Console.WriteLine("Domain.Count de la case choisie SUDOKU ===> " + sudoku.mySudoku[var.Item1][var.Item2].domain.Count);
-            Console.WriteLine("Domain.Count de la case choisie TMP ===> " + tmp.mySudoku[var.Item1][var.Item2].domain.Count);
+           /* Console.WriteLine("Domain.Count de la case choisie SUDOKU ===> " + sudoku.mySudoku[var.Item1][var.Item2].domain.Count);
+            Console.WriteLine("Domain.Count de la case choisie TMP ===> " + tmp.mySudoku[var.Item1][var.Item2].domain.Count);*/
             for (int i=0; i<l; i++)
             {
                 //LCV

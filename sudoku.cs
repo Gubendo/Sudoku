@@ -87,10 +87,16 @@ namespace IA_TP2
         public Case xi;
         public Case xj;
 
+
         public Arc(ref Case xi, ref Case xj)
         {
             this.xi = xi;
             this.xj = xj;
+        }
+        public Arc(Sudoku sudoku,int i1,int j1, int i2,int j2)
+        {
+            this.xi = sudoku.mySudoku[i1][j1];
+            this.xj = sudoku.mySudoku[i2][j2];
         }
     }
     class Sudoku
@@ -207,6 +213,10 @@ namespace IA_TP2
         public List<Case> getRelatives(int i, int j)
         {
             return mySudoku[i][j].getRelatives();
+        }
+        public List<Case> getRelativesNonFixed(int i, int j)
+        {
+            return mySudoku[i][j].getRelativesNonFixed();
         }
     }
 }

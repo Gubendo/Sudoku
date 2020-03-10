@@ -33,6 +33,7 @@ namespace IA_TP2
             Sudoku sudoku = new Sudoku(9);
             int i = 0;
             int rnd = GenerateRandomNumber(5);
+            MainWindow.num = rnd + 1;
             StreamReader reader;
 
             
@@ -40,18 +41,23 @@ namespace IA_TP2
             {
                 case 0:
                     reader = new StreamReader(@"sudoku1.csv");
+                    MainWindow.diff = "Easy";
                     break;
                 case 1:
                     reader = new StreamReader(@"sudoku2.csv");
+                    MainWindow.diff = "Medium";
                     break;
                 case 2:
                     reader = new StreamReader(@"sudoku3.csv");
+                    MainWindow.diff = "Hard";
                     break;
                 case 3:
                     reader = new StreamReader(@"sudoku4.csv");
+                    MainWindow.diff = "Hell";
                     break;
                 case 4:
                     reader = new StreamReader(@"sudoku5.csv");
+                    MainWindow.diff = "Hard";
                     break;
                 default:
                     reader = new StreamReader(@"sudoku1.csv");

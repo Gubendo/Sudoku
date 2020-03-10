@@ -9,7 +9,7 @@
         Title="Sudoku" Height="780" Width="1048"
         >
     <Grid>
-        <StackPanel DockPanel.Dock ="Left" HorizontalAlignment="Left" Width="140" Height="171" VerticalAlignment="Top">
+        <StackPanel DockPanel.Dock ="Left" HorizontalAlignment="Left" Width="140" Height="210" VerticalAlignment="Top">
 
             <Expander IsExpanded ="True" Header ="Main Menu">
 
@@ -27,7 +27,7 @@
 
             </Expander>
 
-            <Expander IsExpanded ="True" Header ="New Game Settings">
+            <Expander IsExpanded ="True" Header ="Game Settings">
 
                 <StackPanel>
 
@@ -45,9 +45,20 @@
 
                     </ComboBox>
 
+                  <TextBlock Text =" "/>
+                  <TextBlock Name="numero" 
+                             Text = "Sudoku n°"/>
+
+                  <TextBlock Name = "difficulty"
+                            Text = "Difficulty :"/>
+
+                  
+
                 </StackPanel>
 
             </Expander>
+          
+          
 
         </StackPanel>
 

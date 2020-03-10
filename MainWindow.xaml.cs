@@ -30,6 +30,10 @@ namespace IA_TP2
         int i = 0;
         int j = 0;
 
+        public static string diff = " ";
+        public static int num = 0;
+
+
         List<(int,int)> fix = new List<(int,int)>();
 
 
@@ -43,8 +47,13 @@ namespace IA_TP2
 
         }
 
+        public static void SetDifficulty(int diff)
+        {
+        }
+
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+            
             switch (sizeCombo.SelectedIndex)
             {
                 case 0:
@@ -70,7 +79,6 @@ namespace IA_TP2
 
             }
 
-           
             dataShow.ItemsSource2D = actSudoku.mySudoku;
             dataShow.ColumnHeaderHeight = 0;
             dataShow.RowHeaderWidth = 0;
@@ -155,6 +163,7 @@ namespace IA_TP2
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
+
             switch (sizeCombo.SelectedIndex)
             {
                 case 0:
@@ -180,6 +189,11 @@ namespace IA_TP2
                     break;
 
             }
+
+            numero.Text = "Sudoku n° " + num.ToString();
+            difficulty.Text = "Difficulty : " + diff;
+            
+
             dataShow.ItemsSource2D = actSudoku.mySudoku;
             dataShow.ColumnHeaderHeight = 0;
             dataShow.RowHeaderWidth = 0;

@@ -55,10 +55,10 @@ namespace IA_TP2
                     reader = new StreamReader(@"sudoku4.csv");
                     MainWindow.diff = "Hell";
                     break;
-                case 4:
+                /*case 4:
                     reader = new StreamReader(@"sudoku5.csv");
                     MainWindow.diff = "Hard";
-                    break;
+                    break;*/
                 default:
                     reader = new StreamReader(@"sudoku1.csv");
                     break;
@@ -178,7 +178,7 @@ namespace IA_TP2
                 }
                 if (!allow)
                 {
-                    if (arc.xi.i==0 && arc.xi.j==0) { Console.WriteLine("valueI : " + valueI + " i :" + arc.xi.i + " j :" + arc.xi.j + " autre case i :" + arc.xj.i + " j :" + arc.xj.j + arc.xj.getValue()); }
+                    //if (arc.xi.i==0 && arc.xi.j==0) { Console.WriteLine("valueI : " + valueI + " i :" + arc.xi.i + " j :" + arc.xi.j + " autre case i :" + arc.xj.i + " j :" + arc.xj.j + arc.xj.getValue()); }
                     
                     arc.xi.domain.Remove(valueI);
                     removed = true;
@@ -271,10 +271,22 @@ namespace IA_TP2
             foreach (int value in sudoku.mySudoku[i][j].domain)
             {
                 // On applique la valeur value
-
+                
                 tmp = new Sudoku(sudoku);
+                Console.WriteLine("1/ taille du domaine sudoku i/j : " + sudoku.mySudoku[i][j].domain.Count);
+                Console.WriteLine("1/ taille du domaine TMP i/j : " + tmp.mySudoku[i][j].domain.Count);
+                Console.WriteLine("1/ valeur de la case sudoku i/j : " + sudoku.mySudoku[i][j].getValue());
+                Console.WriteLine("1/ valeur de la case TMP i/j : " + tmp.mySudoku[i][j].getValue());
                 tmp.mySudoku[i][j].setValue(value);
+                Console.WriteLine("2/ taille du domaine sudoku i/j : " + sudoku.mySudoku[i][j].domain.Count);
+                Console.WriteLine("2/ taille du domaine TMP i/j : " + tmp.mySudoku[i][j].domain.Count);
+                Console.WriteLine("2/ valeur de la case sudoku i/j : " + sudoku.mySudoku[i][j].getValue());
+                Console.WriteLine("2/ valeur de la case TMP i/j : " + tmp.mySudoku[i][j].getValue());
                 AC3(tmp);
+                Console.WriteLine("3/ taille du domaine sudoku i/j : " + sudoku.mySudoku[i][j].domain.Count);
+                Console.WriteLine("3/ taille du domaine TMP i/j : " + tmp.mySudoku[i][j].domain.Count);
+                Console.WriteLine("3/ valeur de la case sudoku i/j : " + sudoku.mySudoku[i][j].getValue());
+                Console.WriteLine("3/ valeur de la case TMP i/j : " + tmp.mySudoku[i][j].getValue());
 
                 // On parcourt les variables relatives
 
@@ -347,7 +359,11 @@ namespace IA_TP2
             Sudoku result = new Sudoku(sudoku);
             Sudoku tmp = new Sudoku(sudoku);
             bool flag;
+            Console.WriteLine("Taille du domaine de la case 0/6 début de backtracking SUDOKU ===> " + sudoku.mySudoku[0][6].domain.Count);
+            Console.WriteLine("Taille du domaine de la case 0/6 début de backtracking TMP ===> " + tmp.mySudoku[0][6].domain.Count);
             AC3(sudoku);
+            Console.WriteLine("Taille du domaine de la case 0/6 premier ac3 SUDOKU ===> " + sudoku.mySudoku[0][6].domain.Count);
+            Console.WriteLine("Taille du domaine de la case 0/6 premier ac3 TMP ===> " + tmp.mySudoku[0][6].domain.Count);
 
             // 1 - Selectionner var non assigné : utiliser MRV puis DH en cas d'égalité
             (int, int) var;
@@ -355,7 +371,8 @@ namespace IA_TP2
 
             // 2 - Selectionner val pour var choisie : utiliser LCV
             int l = sudoku.mySudoku[var.Item1][var.Item2].domain.Count;
-            Console.WriteLine("KEBAB ===> " + sudoku.mySudoku[var.Item1][var.Item2].domain.Count);
+            Console.WriteLine("Domain.Count de la case choisie SUDOKU ===> " + sudoku.mySudoku[var.Item1][var.Item2].domain.Count);
+            Console.WriteLine("Domain.Count de la case choisie TMP ===> " + tmp.mySudoku[var.Item1][var.Item2].domain.Count);
             for (int i=0; i<l; i++)
             {
                 //LCV
@@ -366,7 +383,7 @@ namespace IA_TP2
                 AC3(sudoku);
                 sudoku.mySudoku[var.Item1][var.Item2].setValue(val);
                 
-                Console.WriteLine("Affection de la case i : "+ var.Item1 + " j: "+ var.Item2 + " avec la valeur : "+val);
+                Console.WriteLine("Affectation de la case i : "+ var.Item1 + " j: "+ var.Item2 + " avec la valeur : "+val);
 
                 // 3 - AC3 => refresh du domaine de chaque case
                 AC3(sudoku);
@@ -401,7 +418,7 @@ namespace IA_TP2
                     }
                     if (flag)
                     {
-                        //RETURN SOLUTION ICI SI PAS DE PROBLEME
+                        //RETURN SOLUTION ICI
                         return result;
                     }
                 }

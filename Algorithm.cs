@@ -320,11 +320,11 @@ namespace IA_TP2
             Console.WriteLine("KEBAB ===> " + sudoku.mySudoku[var.Item1][var.Item2].domain.Count);
             for (int i=0; i<l; i++)
             {
-                //LCV pas correct pour le moment
-                //int val = selectLCV(sudoku, var);
+                //LCV
+                int val = selectLCV(sudoku, var);
 
                 int val = sudoku.mySudoku[var.Item1][var.Item2].domain[i];
-                Console.WriteLine("ICI ===> " + sudoku.mySudoku[var.Item1][var.Item2].domain.Count);
+                Console.WriteLine(sudoku.mySudoku[var.Item1][var.Item2].domain.Count);
                 AC3(sudoku);
                 sudoku.mySudoku[var.Item1][var.Item2].setValue(val);
                 
@@ -339,6 +339,7 @@ namespace IA_TP2
                     Console.WriteLine("hello");
                     // le resultat trouvé n'était pas viable => on revient en arrière
                     sudoku = new Sudoku(tmp);
+                    sudoku.mySudoku[var.Item1][var.Item2].domain.Remove(val);
                 }
                 else
                 {
@@ -356,6 +357,7 @@ namespace IA_TP2
                         Console.WriteLine("i = " + i);
                         // le resultat trouvé n'était pas viable => on revient en arrière  
                         sudoku = new Sudoku(tmp);
+                        sudoku.mySudoku[var.Item1][var.Item2].domain.Remove(val);
                         flag = false;
 
                     }

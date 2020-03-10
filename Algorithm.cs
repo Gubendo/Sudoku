@@ -35,7 +35,7 @@ namespace IA_TP2
             int rnd = GenerateRandomNumber(4);
             StreamReader reader;
 
-            /*
+            
             switch (rnd)
             {
                 case 0:
@@ -54,9 +54,9 @@ namespace IA_TP2
                     reader = new StreamReader(@"sudoku1.csv");
                     break;
             }
-            */
+            
 
-            reader = new StreamReader(@"test.csv");
+            //reader = new StreamReader(@"test.csv");
             //Remplacer par adresse du fichier
             using (reader)
             {
@@ -90,15 +90,7 @@ namespace IA_TP2
             {
                 for (int j = 0; j < sudoku.size; j++)
                 {
-                    //Console.WriteLine("//AC3// Taille RELATIVES : " + sudoku.getRelatives(i, j).Count);
-                    /*if ( i == 0 && j ==0)
-                    {
-                        Console.WriteLine(" relatives de 0 0");
-                        foreach (Case c in sudoku.getRelatives(i, j))
-                        {
-                            Console.WriteLine("i = "+c.i + " j = "+c.j);
-                        }
-                    }*/
+                    
                     for (int index = 0; index < sudoku.getRelatives(i, j).Count; index++)
                     {
                         Case actCase = sudoku.mySudoku[i][j].getRelatives()[index];

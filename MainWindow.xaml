@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:IA_TP2"
         xmlns:dg2d="clr-namespace:DataGrid2DLibrary;assembly=DataGrid2DLibrary"
         mc:Ignorable="d"
-        Title="MainWindow" Height="780" Width="1048"
+        Title="Sudoku" Height="780" Width="1048"
         >
     <Grid>
         <StackPanel DockPanel.Dock ="Left" HorizontalAlignment="Left" Width="140" Height="171" VerticalAlignment="Top">

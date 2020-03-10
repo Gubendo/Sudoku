@@ -89,6 +89,35 @@ namespace IA_TP2
 
         }
 
+        public static Sudoku ReadCSVFromFile(string str)
+        {
+            Sudoku sudoku = new Sudoku(9);
+            int i = 0;
+
+            StreamReader reader = new StreamReader(str);
+
+            using (reader)
+            {
+
+                while (!reader.EndOfStream)
+                {
+                    var line = reader.ReadLine();
+                    var values = line.Split(';');
+
+                    for (int j = 0; j < 9; j++)
+                    {
+                        //Console.Write(Int16.Parse(values[j]));
+                        if (Int16.Parse(values[j]) != 0)
+                            sudoku.mySudoku[i][j].setValue(Int16.Parse(values[j]));
+                    }
+                    i = i + 1;
+                }
+            }
+
+
+            return sudoku;
+        }
+
         public static void AC3(Sudoku sudoku)
         {
 

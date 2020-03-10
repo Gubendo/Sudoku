@@ -55,10 +55,10 @@ namespace IA_TP2
                     reader = new StreamReader(@"sudoku4.csv");
                     MainWindow.diff = "Hell";
                     break;
-                /*case 4:
+                case 4:
                     reader = new StreamReader(@"sudoku5.csv");
                     MainWindow.diff = "Hard";
-                    break;*/
+                    break;
                 default:
                     reader = new StreamReader(@"sudoku1.csv");
                     break;

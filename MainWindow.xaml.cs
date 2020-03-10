@@ -134,6 +134,7 @@ namespace IA_TP2
 
             fix.Clear();
 
+
             if (tailleSudoku == 9)
             {
                 Color9();
@@ -150,7 +151,7 @@ namespace IA_TP2
             {
                 Color36();
             }
-            
+
 
         }
 
@@ -195,156 +196,7 @@ namespace IA_TP2
             dataShow.MaxColumnWidth = 800 / actSudoku.size;
             dataShow.FontSize = 19 * 16 / actSudoku.size;
 
-            
 
-            if (actSudoku.size != 9) return;
-
-
-            /*
-            actSudoku.mySudoku[3][0].setValue(1);
-            actSudoku.mySudoku[5][0].setValue(5);
-            actSudoku.mySudoku[7][0].setValue(6);
-            actSudoku.mySudoku[8][0].setValue(8);
-
-            actSudoku.mySudoku[6][1].setValue(7);
-            actSudoku.mySudoku[8][1].setValue(1);
-
-            actSudoku.mySudoku[0][2].setValue(9);
- 
-            actSudoku.mySudoku[7][2].setValue(3);
-
-            actSudoku.mySudoku[2][3].setValue(7);
-            actSudoku.mySudoku[4][3].setValue(2);
-            actSudoku.mySudoku[5][3].setValue(6);
-
-            actSudoku.mySudoku[0][4].setValue(5);
-            actSudoku.mySudoku[8][4].setValue(3);
-
-            actSudoku.mySudoku[3][5].setValue(8);
-            actSudoku.mySudoku[4][5].setValue(7);
-            actSudoku.mySudoku[6][5].setValue(4);
-
-            actSudoku.mySudoku[1][6].setValue(3);
-            actSudoku.mySudoku[6][6].setValue(8);
-            actSudoku.mySudoku[8][6].setValue(5);
-
-            actSudoku.mySudoku[0][7].setValue(1);
-            actSudoku.mySudoku[2][7].setValue(5);
-
-
-            actSudoku.mySudoku[0][8].setValue(7);
-            actSudoku.mySudoku[1][8].setValue(9);
-            actSudoku.mySudoku[3][8].setValue(4);
-            actSudoku.mySudoku[5][8].setValue(1);
-            */
-
-
-            /* DIABOLIQUE
-            actSudoku.mySudoku[0][0].setValue(1);
-            actSudoku.mySudoku[1][0].setValue(7);
-
-            actSudoku.mySudoku[4][0].setValue(6);
-
-            actSudoku.mySudoku[7][0].setValue(5);
-            actSudoku.mySudoku[8][0].setValue(9);
-
-            actSudoku.mySudoku[7][1].setValue(8);
-
-            actSudoku.mySudoku[1][2].setValue(5);
-            actSudoku.mySudoku[2][2].setValue(6);
-
-            actSudoku.mySudoku[5][2].setValue(8);
-
-            actSudoku.mySudoku[0][3].setValue(3);
-
-            actSudoku.mySudoku[6][3].setValue(7);
-            actSudoku.mySudoku[7][3].setValue(2);
-            actSudoku.mySudoku[8][3].setValue(8);
-
-            actSudoku.mySudoku[6][4].setValue(3);
-
-            actSudoku.mySudoku[3][5].setValue(1);
-            actSudoku.mySudoku[4][5].setValue(9);
-
-            actSudoku.mySudoku[6][5].setValue(4);
-
-            actSudoku.mySudoku[1][6].setValue(1);
-
-            actSudoku.mySudoku[3][6].setValue(8);
-
-            actSudoku.mySudoku[7][6].setValue(4);
-
-            actSudoku.mySudoku[0][7].setValue(6);
-
-            actSudoku.mySudoku[5][7].setValue(5);
-
-            actSudoku.mySudoku[7][7].setValue(7);
-            actSudoku.mySudoku[8][7].setValue(3);
-
-            actSudoku.mySudoku[0][8].setValue(4);
-            */
-
-            /* FACILE 2
-            actSudoku.mySudoku[0][0].setValue(8);
-            actSudoku.mySudoku[1][0].setValue(2);
-            actSudoku.mySudoku[2][0].setValue(3);
-
-            actSudoku.mySudoku[7][0].setValue(5);
-            actSudoku.mySudoku[8][0].setValue(6);
-
-            actSudoku.mySudoku[1][1].setValue(9);
-            actSudoku.mySudoku[2][1].setValue(1);
-
-            actSudoku.mySudoku[5][1].setValue(4);
-
-            actSudoku.mySudoku[0][2].setValue(7);
-
-            actSudoku.mySudoku[6][2].setValue(1);
-
-            actSudoku.mySudoku[0][3].setValue(5);
-
-            actSudoku.mySudoku[4][3].setValue(1);
-
-            actSudoku.mySudoku[7][3].setValue(4);
-
-            actSudoku.mySudoku[0][4].setValue(3);
-
-            actSudoku.mySudoku[6][4].setValue(9);
-            actSudoku.mySudoku[7][4].setValue(7);
-
-            actSudoku.mySudoku[3][5].setValue(7);
-
-            actSudoku.mySudoku[6][5].setValue(8);
-            actSudoku.mySudoku[7][5].setValue(6);
-            actSudoku.mySudoku[8][5].setValue(5);
-
-            actSudoku.mySudoku[1][6].setValue(3);
-
-            actSudoku.mySudoku[4][6].setValue(8);
-
-            actSudoku.mySudoku[6][6].setValue(5);
-            actSudoku.mySudoku[7][6].setValue(2);
-
-            actSudoku.mySudoku[1][7].setValue(6);
-            actSudoku.mySudoku[2][7].setValue(8);
-            actSudoku.mySudoku[3][7].setValue(5);
-
-            actSudoku.mySudoku[6][7].setValue(7);
-
-            actSudoku.mySudoku[8][7].setValue(4);
-
-            actSudoku.mySudoku[0][8].setValue(2);
-
-            actSudoku.mySudoku[2][8].setValue(4);
-
-            actSudoku.mySudoku[5][8].setValue(7);
-
-            actSudoku.mySudoku[7][8].setValue(8);
-
-            */
-
-
-            //actSudoku = Algorithm.backtracking(actSudoku);
             dataShow.UpdateLayout();
             for (i = 0; i < 9; i++)
             {

@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:IA_TP2"
         xmlns:dg2d="clr-namespace:DataGrid2DLibrary;assembly=DataGrid2DLibrary"
         mc:Ignorable="d"
-        Title="Sudoku" Height="780" Width="1048"
+        Title="Sudoku" Height="850" Width="1048"
         >
     <Grid>
         <StackPanel DockPanel.Dock ="Left" HorizontalAlignment="Left" Width="140" Height="210" VerticalAlignment="Top">
@@ -66,14 +66,14 @@
 
 
 
-
+      <Image Source ="/Resources/test.png" Margin ="200,0,0,0" Height = "150" Width = "600" HorizontalAlignment="Center" VerticalAlignment="Top"/>
 
 
 
       <dg2d:DataGrid2D Name="dataShow"
                   ColumnWidth="*"
                UseModifiedDataGridStyle="True"
-               ItemsSource2D="{Binding value}" Margin="0,0,30,0" Height="700" FontWeight="Normal" VerticalScrollBarVisibility="Disabled" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Right" VerticalAlignment="Center">
+               ItemsSource2D="{Binding value}" Margin="0,-200,10,0" Height="700" FontWeight="Normal" VerticalScrollBarVisibility="Disabled" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Right" VerticalAlignment="Bottom">
         <DataGrid.CellStyle>
           <Style TargetType="DataGridCell" >
                 <Setter Property="Background" Value="LightGray"/>

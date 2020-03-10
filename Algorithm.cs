@@ -32,7 +32,7 @@ namespace IA_TP2
         {
             Sudoku sudoku = new Sudoku(9);
             int i = 0;
-            int rnd = GenerateRandomNumber(4);
+            int rnd = GenerateRandomNumber(5);
             StreamReader reader;
 
             
@@ -49,6 +49,9 @@ namespace IA_TP2
                     break;
                 case 3:
                     reader = new StreamReader(@"sudoku4.csv");
+                    break;
+                case 4:
+                    reader = new StreamReader(@"sudoku5.csv");
                     break;
                 default:
                     reader = new StreamReader(@"sudoku1.csv");
@@ -323,7 +326,7 @@ namespace IA_TP2
                 //LCV
                 int val = selectLCV(sudoku, var);
 
-                int val = sudoku.mySudoku[var.Item1][var.Item2].domain[i];
+                //int val = sudoku.mySudoku[var.Item1][var.Item2].domain[i];
                 Console.WriteLine(sudoku.mySudoku[var.Item1][var.Item2].domain.Count);
                 AC3(sudoku);
                 sudoku.mySudoku[var.Item1][var.Item2].setValue(val);

@@ -18,6 +18,9 @@ namespace IA_TP2
     /// <summary>
     /// Logique d'interaction pour MainWindow.xaml
     /// </summary>
+    /// 
+    
+
     public partial class MainWindow : Window
     {
         Sudoku actSudoku = new Sudoku(9);
@@ -26,6 +29,10 @@ namespace IA_TP2
 
         int i = 0;
         int j = 0;
+
+        List<(int,int)> fix = new List<(int,int)>();
+
+
         public MainWindow()
         {
             InitializeComponent();
@@ -112,8 +119,19 @@ namespace IA_TP2
             dataShow.MaxColumnWidth = 800 / actSudoku.size;
             dataShow.FontSize = 19 * 16 / actSudoku.size;
             */
-            
 
+            dataShow.UpdateLayout();
+            foreach ((int,int) doubleV in fix)
+            {
+                DataGridRow dgRow = dataShow.ItemContainerGenerator.ContainerFromIndex(doubleV.Item1) as DataGridRow;
+                DataGridCell cell = dataShow.Columns[doubleV.Item2].GetCellContent(dgRow).Parent as DataGridCell;
+                
+
+                cell.FontWeight = FontWeights.Bold;
+
+            }
+
+            fix.Clear();
 
             if (tailleSudoku == 9)
             {
@@ -172,7 +190,7 @@ namespace IA_TP2
             
 
             if (actSudoku.size != 9) return;
-           
+
 
             /*
             actSudoku.mySudoku[3][0].setValue(1);
@@ -211,7 +229,7 @@ namespace IA_TP2
             actSudoku.mySudoku[3][8].setValue(4);
             actSudoku.mySudoku[5][8].setValue(1);
             */
-            
+
 
             /* DIABOLIQUE
             actSudoku.mySudoku[0][0].setValue(1);
@@ -316,9 +334,26 @@ namespace IA_TP2
             actSudoku.mySudoku[7][8].setValue(8);
 
             */
-            
+
 
             //actSudoku = Algorithm.backtracking(actSudoku);
+            dataShow.UpdateLayout();
+            for (i = 0; i < 9; i++)
+            {
+                for (j = 0; j < 9; j++)
+                {
+                    DataGridRow dgRow = dataShow.ItemContainerGenerator.ContainerFromIndex(i) as DataGridRow;
+                    DataGridCell cell = dataShow.Columns[j].GetCellContent(dgRow).Parent as DataGridCell;
+
+                    if (cell.ToString() != "System.Windows.Controls.DataGridCell: 0")
+                    {
+                        cell.FontWeight = FontWeights.Bold;
+
+                        fix.Add((i, j));
+
+                    }
+                }
+            }
 
             if (tailleSudoku == 9)
             {
@@ -343,6 +378,8 @@ namespace IA_TP2
 
         private void Color9()
         {
+            
+            
             dataShow.UpdateLayout();
             for (i = 0; i < 3; i++)
             {

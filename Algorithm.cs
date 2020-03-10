@@ -407,6 +407,10 @@ namespace IA_TP2
                         {
                             result = backtracking(sudoku);
                         }
+                        else
+                        {
+                            result = sudoku;
+                        }
                     }
                     catch (Failure ex)
                     {

@@ -33,6 +33,8 @@ namespace IA_TP2
 
         public int? getValue()
         {
+            
+            if (domain.Count == 1) setValue(domain[0]);
             return value;
         }
         public void setValue(int value)

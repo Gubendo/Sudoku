@@ -119,7 +119,7 @@ namespace IA_TP2
             dataShow.MaxColumnWidth = 800 / actSudoku.size;
             dataShow.FontSize = 19 * 16 / actSudoku.size;
             */
-
+            dataShow.Items.Refresh();
             dataShow.UpdateLayout();
             foreach ((int,int) doubleV in fix)
             {
@@ -131,9 +131,16 @@ namespace IA_TP2
                 cell.FontWeight = FontWeights.Bold;
 
             }
-
+            for (int i = 0; i < 9; i++)
+            {
+                for (int j = 0; j < 9; j++)
+                {
+                    Console.Write(actSudoku.mySudoku[i][j] + " ; ");
+                }
+                Console.WriteLine();
+            }
             fix.Clear();
-
+            
 
             if (tailleSudoku == 9)
             {
